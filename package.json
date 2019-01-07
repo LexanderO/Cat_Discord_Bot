@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "forever index.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/LexanderO/Cat_Discord_Bot#readme",
   "dependencies": {
     "discord.js": "^11.4.2",
+    "forever": "^0.15.3",
     "querystring": "^0.2.0",
     "r2": "^2.0.1"
   }
