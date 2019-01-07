@@ -6,11 +6,16 @@ const client = new Discord.Client();
 
 const {d_token} = require ('./config.json');
 const {cat_token} = require ('./config.json');
-const CAT_API_URL   = "https://api.thecatapi.com/"
+const CAT_API_URL = "https://api.thecatapi.com/"
 
 client.on('ready', () => {
     console.log("Connected as " + client.user.tag)
 });
+
+client.on('error', data => {
+    console.log('error',data);
+    // attempt reconnection x times, after x seconds, exponential backoff
+  });
 
 client.login(d_token);
 
@@ -71,7 +76,8 @@ async function meowRecieved(receivedMessage)
 
     console.log('message processed','showing',breed)
     // use the *** to make text bold, and * to make italic
-    message.channel.send( "***"+breed.name + "*** \r *"+breed.temperament+"*", { files: [ image.url ] } );
+    receivedMessage.channel.send( //"***"+breed.name + "*** \r *"+breed.temperament+"*", 
+    { files: [ image.url ] } );
     // if you didn't want to see the text, just send the file
 
   }catch(error)
@@ -98,7 +104,8 @@ async function loadImage(sub_id)
 
   try {
     // construct the API Get request url
-    let _url = cat_token + `v1/images/search?${queryString}`;
+    let _url = CAT_API_URL + `v1/images/search?${queryString}`;
+    console.log('URL = '+ _url);
     // make the request passing the url, and headers object which contains the API_KEY
     var response = await r2.get(_url , {headers} ).json
   } catch (e) {
