@@ -4,8 +4,8 @@ const r2 = require('r2');
 
 const client = new Discord.Client();
 
-const {d_token} = require ('./config.json');
-const {cat_token} = require ('./config.json');
+const {d_token} = require (process.env.BOT_TOKEN);
+const {cat_token} = require (process.env.CAT_TOKEN);
 const CAT_API_URL = "https://api.thecatapi.com/"
 
 client.on('ready', () => {
