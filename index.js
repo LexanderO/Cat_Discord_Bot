@@ -96,8 +96,8 @@ async function loadImage(sub_id)
   }
   var query_params = {
     'has_breeds':true, // we only want images with at least one breed data object - name, temperament etc
-    'mime_types':'jpg,png', // we only want static images as Discord doesn't like gifs
-    'size':'small',   // get the small images as the size is prefect for Discord's 390x256 limit
+    'mime_types':'gif,jpg,png', // we only want static images as Discord doesn't like gifs
+    'size':'large',   // get the small images as the size is prefect for Discord's 390x256 limit
     'sub_id': sub_id, // pass the message senders username so you can see how many images each user has asked for in the stats
     'limit' : 1       // only need one
   }
