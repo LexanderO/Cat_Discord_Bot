@@ -23,8 +23,10 @@ client.on('message', (receivedMessage) => {
     if (receivedMessage.author == client.user) { // Prevent bot from responding to its own messages
         return
     }
-    
-    if (receivedMessage.content.startsWith("!")) {
+    if (receivedMessage.content == "!meow") {
+        processCommand(receivedMessage)
+    }
+    else if (receivedMessage.content.startsWith("!") && receivedMessage.content.includes(client.user.toString())) {
         processCommand(receivedMessage)
     }
 })
