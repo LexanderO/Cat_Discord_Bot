@@ -4,23 +4,9 @@ const r2 = require('r2');
 
 const client = new Discord.Client();
 
-const d_token = (process.env.BOT_TOKEN);
-const cat_token = (process.env.CAT_TOKEN);
+const {d_token} = require ('./config.json');
+const {cat_token} = require ('./config.json');
 const CAT_API_URL = "https://api.thecatapi.com/"
-
-const cool = require('cool-ascii-faces')
-const express = require('express')
-const path = require('path')
-const PORT = process.env.PORT || 5000
-
-express()
-  .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
-  .get('/cool', (req, res) => res.send(cool()))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
-  
 
 client.on('ready', () => {
     console.log("Connected as " + client.user.tag)
