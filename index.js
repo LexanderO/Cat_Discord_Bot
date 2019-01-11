@@ -69,6 +69,10 @@ function helpCommand(arguments, receivedMessage) {
 async function meowRecieved(receivedMessage)
 {
   try{
+    var myCatArray = ['😻', '😽', '🙀', '😼', '😹', '😸', '😺'];
+    var randCat = myArray[Math.floor(Math.random() * myArray.length)];
+    receivedMessage.react(randCat)
+
     // pass the name of the user who sent the message for stats later, expect an array of images to be returned.
     var images = await loadImage(receivedMessage.author.username);
 
