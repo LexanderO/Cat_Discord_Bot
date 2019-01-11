@@ -8,6 +8,8 @@ const {d_token} = require ('./config.json');
 const {cat_token} = require ('./config.json');
 const CAT_API_URL = "https://api.thecatapi.com/"
 
+var timer = setInterval(function() { catActivity(); }, 25000000);
+
 client.on('ready', () => {
     console.log("Connected as " + client.user.tag)
 });
@@ -18,6 +20,30 @@ client.on('error', data => {
   });
 
 client.login(d_token);
+
+var i = setInterval(function() { catActivity(); }, 5000000);
+
+function catActivity() {
+    var catArray = ['opt1', 'opt2', 'opt3', 'opt4', 'opt5']; 
+    var randAct = myArray[Math.floor(Math.random() * myArray.length)];
+    switch(randAct){
+        case "opt1":
+            client.user.setActivity("", {type: ""})
+            break;
+        case "opt2":
+            client.user.setActivity("Catflix", {type: "Watching"})
+            break;
+        case "opt3":
+            client.user.setActivity("MeowCraft III", {type: "Playing"})
+            break;
+        case "opt4":
+            client.user.setActivity("Nap", {type: "Trying to"})
+            break;
+        case "opt5":
+            client.user.setActivity("Jingle Cats", {type: "Listening to"})
+            break;
+    }
+}
 
 client.on('message', (receivedMessage) => {
     if (receivedMessage.author == client.user) { // Prevent bot from responding to its own messages
