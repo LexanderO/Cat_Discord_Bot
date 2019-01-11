@@ -73,7 +73,7 @@ async function meowRecieved(receivedMessage)
 {
   try{
     var myCatArray = ['😻', '😽', '🙀', '😼', '😹', '😸', '😺'];
-    var randCat = myArray[Math.floor(Math.random() * myArray.length)];
+    var randCat = myCatArray[Math.floor(Math.random() * myCatArray.length)];
     receivedMessage.react(randCat)
 
     // pass the name of the user who sent the message for stats later, expect an array of images to be returned.
@@ -85,7 +85,7 @@ async function meowRecieved(receivedMessage)
 
     console.log('message processed','showing',breed)
     // use the *** to make text bold, and * to make italic
-    receivedMessage.channel.send( "Meow 🐈" +
+    receivedMessage.channel.send( "Meow 🐈",
         //"***"+breed.name + "*** \r *"+breed.temperament+"*", 
     { files: [ image.url ] } );
     // if you didn't want to see the text, just send the file
@@ -126,5 +126,5 @@ async function loadImage(sub_id)
 }
 
 function meowReact(receivedMessage) {
-     receivedMessage.channel.send(receivedMessage.author.toString() + " Meow 🐈??? 🙀")
+     receivedMessage.channel.send(receivedMessage.author.toString() + " Meow??? 🙀")
 }
