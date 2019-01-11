@@ -19,6 +19,30 @@ client.on('error', data => {
 
 client.login(d_token);
 
+var catTimer = setInterval(function() { catActivity(); }, 900000);
+
+function catActivity() {
+    var catArray = ['opt1', 'opt2', 'opt3', 'opt4', 'opt5']; 
+    var randAct = catArray[Math.floor(Math.random() * catArray.length)];
+    switch(randAct){
+        case "opt1":
+            client.user.setActivity("", {type: ""})
+            break;
+        case "opt2":
+            client.user.setActivity("Catflix", {type: "Watching"})
+            break;
+        case "opt3":
+            client.user.setActivity("MeowCraft III", {type: "Playing"})
+            break;
+        case "opt4":
+            client.user.setActivity("Nap", {type: "Trying to"})
+            break;
+        case "opt5":
+            client.user.setActivity("Jingle Cats", {type: "Listening to"})
+            break;
+    }
+}
+
 client.on('message', (receivedMessage) => {
     if (receivedMessage.author == client.user) { // Prevent bot from responding to its own messages
         return
@@ -54,6 +78,9 @@ function searhCommand(receivedMessage, primaryCommand, arguments){
             break;
         case "meow":
             meowRecieved(receivedMessage);
+            break;
+        case "pints":
+            pintsCommand(receivedMessage);
             break;
         default:
             receivedMessage.channel.send("I don't understand the command. Try `!help`")
@@ -122,9 +149,12 @@ async function loadImage(sub_id)
       console.log(e)
   }
   return response;
-
 }
 
 function meowReact(receivedMessage) {
      receivedMessage.channel.send(receivedMessage.author.toString() + " Meow??? 🙀")
+}
+
+function pintsCommand(receivedMessage) {
+    receivedMessage.channel.send(receivedMessage.author.toString() + " Meow!! :smiley_cat:", { files: [ "http://crow202.org/2009/cat_guinness.jpg" ] });
 }
