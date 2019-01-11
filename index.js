@@ -8,7 +8,7 @@ const {d_token} = require ('./config.json');
 const {cat_token} = require ('./config.json');
 const CAT_API_URL = "https://api.thecatapi.com/"
 
-const catPint = new Discord.Attachment('https://avatars2.githubusercontent.com/u/7840564?s=460&v=4')
+const catPint = new Discord.Attachment('http://crow202.org/2009/cat_guinness.jpg')
 
 client.on('ready', () => {
     console.log("Connected as " + client.user.tag)
@@ -122,5 +122,5 @@ async function loadImage(sub_id)
 }
 
 function pintsCommand(receivedMessage) {
-    receivedMessage.channel.send(receivedMessage.author.toString() + " Meow!! " + catPint);
+    receivedMessage.channel.send(receivedMessage.author.toString() + " Meow!! :smiley_cat:", { files: [ "http://crow202.org/2009/cat_guinness.jpg" ] });
 }
