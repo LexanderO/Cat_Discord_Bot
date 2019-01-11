@@ -53,6 +53,9 @@ client.on('message', (receivedMessage) => {
     else if (receivedMessage.content.startsWith("!") && receivedMessage.content.includes(client.user.toString())) {
         processCommand(receivedMessage)
     }
+    else if (receivedMessage.content.includes(client.user.toString())) {
+        meowReact(receivedMessage)
+    }
 })
 
 function processCommand(receivedMessage) {
@@ -96,6 +99,10 @@ function helpCommand(arguments, receivedMessage) {
 async function meowRecieved(receivedMessage)
 {
   try{
+    var myCatArray = ['😻', '😽', '🙀', '😼', '😹', '😸', '😺'];
+    var randCat = myCatArray[Math.floor(Math.random() * myCatArray.length)];
+    receivedMessage.react(randCat)
+
     // pass the name of the user who sent the message for stats later, expect an array of images to be returned.
     var images = await loadImage(receivedMessage.author.username);
 
@@ -105,7 +112,8 @@ async function meowRecieved(receivedMessage)
 
     console.log('message processed','showing',breed)
     // use the *** to make text bold, and * to make italic
-    receivedMessage.channel.send( //"***"+breed.name + "*** \r *"+breed.temperament+"*", 
+    receivedMessage.channel.send( "Meow 🐈",
+        //"***"+breed.name + "*** \r *"+breed.temperament+"*", 
     { files: [ image.url ] } );
     // if you didn't want to see the text, just send the file
 
@@ -123,7 +131,7 @@ async function loadImage(sub_id)
   }
   var query_params = {
     'has_breeds':true, // we only want images with at least one breed data object - name, temperament etc
-    'mime_types':'gif,jpg,png', // we only want static images as Discord doesn't like gifs
+    'mime_types':'gif,png', // we only want static images as Discord doesn't like gifs
     'size':'large',   // get the small images as the size is prefect for Discord's 390x256 limit
     'sub_id': sub_id, // pass the message senders username so you can see how many images each user has asked for in the stats
     'limit' : 1       // only need one
@@ -141,6 +149,10 @@ async function loadImage(sub_id)
       console.log(e)
   }
   return response;
+}
+
+function meowReact(receivedMessage) {
+     receivedMessage.channel.send(receivedMessage.author.toString() + " Meow??? 🙀")
 }
 
 function pintsCommand(receivedMessage) {
