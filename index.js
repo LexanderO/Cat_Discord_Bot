@@ -8,6 +8,8 @@ const {d_token} = require ('./config.json');
 const {cat_token} = require ('./config.json');
 const CAT_API_URL = "https://api.thecatapi.com/"
 
+const catPint = new Discord.Attachment('https://avatars2.githubusercontent.com/u/7840564?s=460&v=4')
+
 client.on('ready', () => {
     console.log("Connected as " + client.user.tag)
 });
@@ -51,6 +53,9 @@ function searhCommand(receivedMessage, primaryCommand, arguments){
             break;
         case "meow":
             meowRecieved(receivedMessage);
+            break;
+        case "pints":
+            pintsCommand(receivedMessage);
             break;
         default:
             receivedMessage.channel.send("I don't understand the command. Try `!help`")
@@ -114,5 +119,8 @@ async function loadImage(sub_id)
       console.log(e)
   }
   return response;
+}
 
+function pintsCommand(receivedMessage) {
+    receivedMessage.channel.send(receivedMessage.author.toString() + " Meow!! " + catPint);
 }
