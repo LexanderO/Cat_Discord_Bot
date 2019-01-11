@@ -76,6 +76,9 @@ function searhCommand(receivedMessage, primaryCommand, arguments){
         case "meow":
             meowRecieved(receivedMessage);
             break;
+        case "pints":
+            pintsCommand(receivedMessage);
+            break;
         default:
             receivedMessage.channel.send("I don't understand the command. Try `!help`")
     }
@@ -138,5 +141,8 @@ async function loadImage(sub_id)
       console.log(e)
   }
   return response;
+}
 
+function pintsCommand(receivedMessage) {
+    receivedMessage.channel.send(receivedMessage.author.toString() + " Meow!! :smiley_cat:", { files: [ "http://crow202.org/2009/cat_guinness.jpg" ] });
 }
