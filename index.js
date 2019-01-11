@@ -8,8 +8,6 @@ const {d_token} = require ('./config.json');
 const {cat_token} = require ('./config.json');
 const CAT_API_URL = "https://api.thecatapi.com/"
 
-var timer = setInterval(function() { catActivity(); }, 25000000);
-
 client.on('ready', () => {
     console.log("Connected as " + client.user.tag)
 });
@@ -21,7 +19,7 @@ client.on('error', data => {
 
 client.login(d_token);
 
-var i = setInterval(function() { catActivity(); }, 5000000);
+var catTimer = setInterval(function() { catActivity(); }, 5000000);
 
 function catActivity() {
     var catArray = ['opt1', 'opt2', 'opt3', 'opt4', 'opt5']; 
