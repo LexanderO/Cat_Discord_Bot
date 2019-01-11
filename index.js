@@ -29,6 +29,9 @@ client.on('message', (receivedMessage) => {
     else if (receivedMessage.content.startsWith("!") && receivedMessage.content.includes(client.user.toString())) {
         processCommand(receivedMessage)
     }
+    else if (receivedMessage.content.includes(client.user.toString())) {
+        meowReact(receivedMessage)
+    }
 })
 
 function processCommand(receivedMessage) {
@@ -120,4 +123,8 @@ async function loadImage(sub_id)
   }
   return response;
 
+}
+
+function meowReact(receivedMessage) {
+     receivedMessage.channel.send(receivedMessage.author.toString() + " Meow 🐈??? 🙀")
 }
