@@ -82,7 +82,8 @@ async function meowRecieved(receivedMessage)
 
     console.log('message processed','showing',breed)
     // use the *** to make text bold, and * to make italic
-    receivedMessage.channel.send( //"***"+breed.name + "*** \r *"+breed.temperament+"*", 
+    receivedMessage.channel.send( "Meow 🐈" +
+        //"***"+breed.name + "*** \r *"+breed.temperament+"*", 
     { files: [ image.url ] } );
     // if you didn't want to see the text, just send the file
 
