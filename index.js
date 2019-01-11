@@ -19,11 +19,11 @@ client.on('error', data => {
 
 client.login(d_token);
 
-var catTimer = setInterval(function() { catActivity(); }, 5000000);
+var catTimer = setInterval(function() { catActivity(); }, 900000);
 
 function catActivity() {
     var catArray = ['opt1', 'opt2', 'opt3', 'opt4', 'opt5']; 
-    var randAct = myArray[Math.floor(Math.random() * myArray.length)];
+    var randAct = catArray[Math.floor(Math.random() * catArray.length)];
     switch(randAct){
         case "opt1":
             client.user.setActivity("", {type: ""})
