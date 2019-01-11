@@ -19,6 +19,30 @@ client.on('error', data => {
 
 client.login(d_token);
 
+var catTimer = setInterval(function() { catActivity(); }, 900000);
+
+function catActivity() {
+    var catArray = ['opt1', 'opt2', 'opt3', 'opt4', 'opt5']; 
+    var randAct = catArray[Math.floor(Math.random() * catArray.length)];
+    switch(randAct){
+        case "opt1":
+            client.user.setActivity("", {type: ""})
+            break;
+        case "opt2":
+            client.user.setActivity("Catflix", {type: "Watching"})
+            break;
+        case "opt3":
+            client.user.setActivity("MeowCraft III", {type: "Playing"})
+            break;
+        case "opt4":
+            client.user.setActivity("Nap", {type: "Trying to"})
+            break;
+        case "opt5":
+            client.user.setActivity("Jingle Cats", {type: "Listening to"})
+            break;
+    }
+}
+
 client.on('message', (receivedMessage) => {
     if (receivedMessage.author == client.user) { // Prevent bot from responding to its own messages
         return
