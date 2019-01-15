@@ -8,6 +8,8 @@ const {d_token} = require ('./config.json');
 const {cat_token} = require ('./config.json');
 const CAT_API_URL = "https://api.thecatapi.com/"
 
+const buildVersion = process.env.npm_package_version;
+
 client.on('ready', () => {
     console.log("Connected as " + client.user.tag)
 });
