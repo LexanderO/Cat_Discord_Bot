@@ -80,20 +80,6 @@ function processCommand(receivedMessage) {
 }
 
 function searhCommand(receivedMessage, primaryCommand, arguments){
-    // switch(primaryCommand){
-    //     case "help":
-    //         helpCommand(receivedMessage);
-    //         break;
-    //     case "meow":
-    //         meowRecieved(receivedMessage);
-    //         break;
-    //     case "pints":
-    //         pintsCommand(receivedMessage);
-    //         break;
-    //     default:
-    //         receivedMessage.channel.send("I don't understand the command. Try `!help`")
-    // }
-
     if (primaryCommand in dict){
         dict[primaryCommand](receivedMessage);
     }
