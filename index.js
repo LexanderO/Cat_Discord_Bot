@@ -21,6 +21,12 @@ client.on('error', data => {
 
 client.login(d_token);
 
+var dict = {
+    "help": helpCommand,
+    "meow": meowRecieved,
+    "pints": pintsCommand
+};
+
 var catTimer = setInterval(function() { catActivity(); }, 900000);
 
 function catActivity() {
@@ -74,20 +80,26 @@ function processCommand(receivedMessage) {
 }
 
 function searhCommand(receivedMessage, primaryCommand, arguments){
-    switch(primaryCommand){
-        case "help":
-            helpCommand(receivedMessage);
-            break;
-        case "meow":
-            meowRecieved(receivedMessage);
-            break;
-        case "pints":
-            pintsCommand(receivedMessage);
-            break;
-        default:
-            receivedMessage.channel.send("I don't understand the command. Try `!help`")
-    }
+    // switch(primaryCommand){
+    //     case "help":
+    //         helpCommand(receivedMessage);
+    //         break;
+    //     case "meow":
+    //         meowRecieved(receivedMessage);
+    //         break;
+    //     case "pints":
+    //         pintsCommand(receivedMessage);
+    //         break;
+    //     default:
+    //         receivedMessage.channel.send("I don't understand the command. Try `!help`")
+    // }
 
+    if (primaryCommand in dict){
+        dict[primaryCommand](receivedMessage);
+    }
+    else{
+        receivedMessage.channel.send("I don't understand the command. Try `!help`")
+    }
 }
 
 function helpCommand(arguments, receivedMessage) {
