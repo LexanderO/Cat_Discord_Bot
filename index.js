@@ -102,7 +102,7 @@ function searhCommand(receivedMessage, primaryCommand, arguments){
     }
 }
 
-function helpCommand(arguments, receivedMessage) {
+function helpCommand(receivedMessage) {
    receivedMessage.channel.send("`Captain Cat` - Currently running version: `CAT."+ buildVersion +"`");
 
 }
