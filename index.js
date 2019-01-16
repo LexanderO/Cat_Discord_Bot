@@ -8,6 +8,8 @@ const {d_token} = require ('./config.json');
 const {cat_token} = require ('./config.json');
 const CAT_API_URL = "https://api.thecatapi.com/"
 
+const buildVersion = process.env.npm_package_version;
+
 client.on('ready', () => {
     console.log("Connected as " + client.user.tag)
 });
@@ -74,7 +76,7 @@ function processCommand(receivedMessage) {
 function searhCommand(receivedMessage, primaryCommand, arguments){
     switch(primaryCommand){
         case "help":
-            helpCommand(arguments, receivedMessage);
+            helpCommand(receivedMessage);
             break;
         case "meow":
             meowRecieved(receivedMessage);
@@ -89,11 +91,8 @@ function searhCommand(receivedMessage, primaryCommand, arguments){
 }
 
 function helpCommand(arguments, receivedMessage) {
-    if (arguments.length > 0) {
-        receivedMessage.channel.send("It looks like you might need help with " + arguments)
-    } else {
-        receivedMessage.channel.send("Here is the full list of comman_{@:ds:L@L:port:90'#ds:>{~@:_____ Error: 404 Commands not Found")
-    }
+   receivedMessage.channel.send("`Captain Cat` - Currently running version: `CAT."+ buildVersion +"`");
+
 }
 
 async function meowRecieved(receivedMessage)
