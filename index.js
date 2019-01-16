@@ -35,10 +35,10 @@ function catActivity() {
             client.user.setActivity("MeowCraft III", {type: "Playing"})
             break;
         case "opt4":
-            client.user.setActivity("Nap", {type: "Trying to"})
+            client.user.setActivity("Catnip", {type: "Playing"})
             break;
         case "opt5":
-            client.user.setActivity("Jingle Cats", {type: "Listening to"})
+            client.user.setActivity("Jingle Cats", {type: "Listening"})
             break;
     }
 }
