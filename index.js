@@ -24,7 +24,8 @@ client.login(d_token);
 var dict = {
     "help": helpCommand,
     "meow": meowRecieved,
-    "pints": pintsCommand
+    "pints": pintsCommand,
+    "git": gitCommand
 };
 
 var catTimer = setInterval(function () { catActivity(); }, 900000);
@@ -152,4 +153,8 @@ function meowReact(receivedMessage) {
 
 function pintsCommand(receivedMessage) {
     receivedMessage.channel.send(receivedMessage.author.toString() + " Meow!! :smiley_cat:", { files: ["http://crow202.org/2009/cat_guinness.jpg"] });
+}
+
+function gitCommand(receivedMessage) {
+    receivedMessage.channel.send(receivedMessage.author.toString() + " 🙀 My git = https://github.com/LexanderO/Cat_Discord_Bot.git")
 }
