@@ -25,8 +25,20 @@ var dict = {
     "help": helpCommand,
     "meow": meowRecieved,
     "pints": pintsCommand,
-    "git": gitCommand
+    "git": gitCommand,
+    "status": statusCommand
 };
+
+var catStatus = {
+    "hunger": 50,
+    "fun":50,
+    "luvToUsers":[{
+        "user": 50
+    }]
+};
+
+var jsonStatus = JSON.parse(catStatus);
+
 
 var catTimer = setInterval(function () { catActivity(); }, 900000);
 
@@ -157,4 +169,9 @@ function pintsCommand(receivedMessage) {
 
 function gitCommand(receivedMessage) {
     receivedMessage.channel.send(receivedMessage.author.toString() + " 🙀 My git repository = https://github.com/LexanderO/Cat_Discord_Bot.git 🙀")
+}
+
+function statusCommand(receivedMessage) {
+    var hunger = jsonStatus.hunger;     
+    receivedMessage.channel.send(receivedMessage.author.toString() + " Hunger = "+ hunger)
 }
