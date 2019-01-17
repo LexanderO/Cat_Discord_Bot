@@ -24,7 +24,8 @@ client.login(d_token);
 var dict = {
     "help": helpCommand,
     "meow": meowRecieved,
-    "pints": pintsCommand
+    "pints": pintsCommand,
+    "git": gitCommand
 };
 
 var catTimer = setInterval(function () { catActivity(); }, 900000);
@@ -43,7 +44,7 @@ function catActivity() {
             client.user.setActivity("MeowCraft III", { type: "Playing" })
             break;
         case "opt4":
-            client.user.setActivity("Catnip", { type: "Playing" })
+            client.user.setActivity("", { type: "" })
             break;
         case "opt5":
             client.user.setActivity("Jingle Cats", { type: "Listening" })
@@ -89,7 +90,8 @@ function searhCommand(receivedMessage, primaryCommand, arguments) {
 }
 
 function helpCommand(receivedMessage) {
-    receivedMessage.channel.send("`Captain Cat` - Currently running version: `CAT." + buildVersion + "`");
+    console.log(Object.keys(dict));
+    receivedMessage.channel.send("`Captain Cat` - Currently running version: `CAT." + buildVersion + "`"+ "\n" + "\n" + "Available Commands @Capt. Cat :" + "\n! `"+ Object.keys(dict)+"`");
 
 }
 
@@ -151,4 +153,8 @@ function meowReact(receivedMessage) {
 
 function pintsCommand(receivedMessage) {
     receivedMessage.channel.send(receivedMessage.author.toString() + " Meow!! :smiley_cat:", { files: ["http://crow202.org/2009/cat_guinness.jpg"] });
+}
+
+function gitCommand(receivedMessage) {
+    receivedMessage.channel.send(receivedMessage.author.toString() + " 🙀 My git repository = https://github.com/LexanderO/Cat_Discord_Bot.git 🙀")
 }
