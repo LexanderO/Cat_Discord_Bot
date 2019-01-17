@@ -89,7 +89,8 @@ function searhCommand(receivedMessage, primaryCommand, arguments) {
 }
 
 function helpCommand(receivedMessage) {
-    receivedMessage.channel.send("`Captain Cat` - Currently running version: `CAT." + buildVersion + "`");
+    console.log(Object.keys(dict));
+    receivedMessage.channel.send("`Captain Cat` - Currently running version: `CAT." + buildVersion + "`"+ "\n" + "\n" + "Available Commands @Capt. Cat :" + "\n! `"+ Object.keys(dict)+"`");
 
 }
 
