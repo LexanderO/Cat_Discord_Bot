@@ -156,5 +156,5 @@ function pintsCommand(receivedMessage) {
 }
 
 function gitCommand(receivedMessage) {
-    receivedMessage.channel.send(receivedMessage.author.toString() + " 🙀 My git = https://github.com/LexanderO/Cat_Discord_Bot.git")
+    receivedMessage.channel.send(receivedMessage.author.toString() + " 🙀 My git repository = https://github.com/LexanderO/Cat_Discord_Bot.git 🙀")
 }
