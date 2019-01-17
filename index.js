@@ -168,7 +168,7 @@ function gitCommand(receivedMessage) {
     receivedMessage.channel.send(receivedMessage.author.toString() + " 🙀 My git repository = https://github.com/LexanderO/Cat_Discord_Bot.git 🙀")
 }
 
-function statusCommand(receivedMessage) {
-    var hunger = catStatus.hunger;     
-    receivedMessage.channel.send(receivedMessage.author.toString() + " Hunger = "+ hunger)
+function statusCommand(receivedMessage) {  
+    catStatus.hunger - 1;
+    receivedMessage.channel.send(receivedMessage.author.toString() + "\n Hunger = "+ catStatus.hunger + "\n Fun = "+ catStatus.fun)
 }
