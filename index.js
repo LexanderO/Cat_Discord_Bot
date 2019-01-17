@@ -169,6 +169,7 @@ function gitCommand(receivedMessage) {
 }
 
 function statusCommand(receivedMessage) {  
-    catStatus.hunger - 1;
+    var hunger = catStatus.hunger - 1;
+    catStatus.hunger = hunger;
     receivedMessage.channel.send(receivedMessage.author.toString() + "\n Hunger = "+ catStatus.hunger + "\n Fun = "+ catStatus.fun)
 }
