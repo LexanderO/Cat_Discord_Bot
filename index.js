@@ -169,8 +169,9 @@ function gitCommand(receivedMessage) {
 }
 
 function statusCommand(receivedMessage) {  
-    catStatus.luvToUsers.push(receivedMessage.author.toString());
-    catStatus.luvToUsers.receivedMessage.author.toString()= 5;
+    var userTag = receivedMessage.author.toString();
+    catStatus.luvToUsers.push(userTag);
+    catStatus.luvToUsers.userTag= 5;
    
-    receivedMessage.channel.send(receivedMessage.author.toString() + "\n Hunger = "+ catStatus.hunger + "\n Fun = "+ catStatus.fun+ "\n Cat Luv = "+ catStatus.luvToUsers.receivedMessage.author.toString())
+    receivedMessage.channel.send(receivedMessage.author.toString() + "\n Hunger = "+ catStatus.hunger + "\n Fun = "+ catStatus.fun+ "\n Cat Luv = "+ catStatus.luvToUsers.userTag)
 }
