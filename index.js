@@ -37,9 +37,6 @@ var catStatus = {
     }]
 };
 
-var jsonStatus = JSON.parse(catStatus);
-
-
 var catTimer = setInterval(function () { catActivity(); }, 900000);
 
 function catActivity() {
@@ -172,6 +169,6 @@ function gitCommand(receivedMessage) {
 }
 
 function statusCommand(receivedMessage) {
-    var hunger = jsonStatus.hunger;     
+    var hunger = catStatus.hunger;     
     receivedMessage.channel.send(receivedMessage.author.toString() + " Hunger = "+ hunger)
 }
