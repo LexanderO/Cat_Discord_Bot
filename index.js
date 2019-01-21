@@ -32,9 +32,10 @@ var dict = {
 var catStatus = {
     "hunger": 50,
     "fun":50,
-    "luvToUsers":[{
-        "user": 50
-    }]
+    "luvToUsers":[
+        {"userName": "user1", "luvs":50},
+        {"userName": "user2", "luvs":50},
+    ]
 };
 
 var catTimer = setInterval(function () { catActivity(); }, 900000);
@@ -169,9 +170,18 @@ function gitCommand(receivedMessage) {
 }
 
 function statusCommand(receivedMessage) {  
-    var userTag = receivedMessage.author.toString();
-    catStatus.luvToUsers.push(userTag);
-    catStatus.luvToUsers.userTag= 5;
+    var userName = receivedMessage.author.toString();
+    catStatus.luvToUsers.push(userName);
+    catStatus.luvToUsers.userName= 5;
    
     receivedMessage.channel.send(receivedMessage.author.toString() + "\n Hunger = "+ catStatus.hunger + "\n Fun = "+ catStatus.fun+ "\n Cat Luv = "+ catStatus.luvToUsers.userTag)
+}
+
+function checkIfNewUser(receivedMessage, userName){
+    for(var i=0; i < catStatus.luvToUsers.length; i++){
+        if(catStatus.luvToUsers[i].userName == userName){
+            
+        }
+    }
+
 }
