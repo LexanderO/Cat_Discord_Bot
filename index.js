@@ -170,17 +170,32 @@ function gitCommand(receivedMessage) {
 }
 
 function statusCommand(receivedMessage) {  
-    var userName = receivedMessage.author.toString();
-    catStatus.luvToUsers.push(userName);
-    catStatus.luvToUsers.userName= 5;
-   
-    receivedMessage.channel.send(receivedMessage.author.toString() + "\n Hunger = "+ catStatus.hunger + "\n Fun = "+ catStatus.fun+ "\n Cat Luv = "+ catStatus.luvToUsers.userTag)
+    var userRegistered = false;
+    var user = receivedMessage.author.toString();
+    userRegistered = checkIfNewUser(receivedMessage, user);
+
+    for(var i=0; i < catStatus.luvToUsers.length; i++){
+        if(userRegistered && catStatus.luvToUsers[i].userName == user){
+            receivedMessage.channel.send(receivedMessage.author.toString() + "\n Hunger = "+ catStatus.hunger + "\n Fun = "+ catStatus.fun+ "\n Cat Luv = "+ catStatus.luvToUsers[i].userName + " " + catStatus.luvToUsers[i].luvs);
+        }
+        else{
+
+        }
+    }
 }
 
-function checkIfNewUser(receivedMessage, userName){
+function checkIfNewUser(receivedMessage, user){
     for(var i=0; i < catStatus.luvToUsers.length; i++){
-        if(catStatus.luvToUsers[i].userName == userName){
-            
+        if(catStatus.luvToUsers[i].userName == user){
+            return true;
+        }
+        else {
+            var data = {
+                "userName": user,
+                "luvs": 0
+            };
+            catStatus.luvToUsers.push(data);
+            return true;
         }
     }
 
