@@ -31,10 +31,10 @@ var dict = {
 
 var catStatus = {
     "hunger": 50,
-    "fun":50,
-    "luvToUsers":[
-        {"userName": "user1", "luvs":50},
-        {"userName": "user2", "luvs":50},
+    "fun": 50,
+    "luvToUsers": [
+        { "userName": "user1", "luvs": 50 },
+        { "userName": "user2", "luvs": 50 },
     ]
 };
 
@@ -101,7 +101,7 @@ function searhCommand(receivedMessage, primaryCommand, arguments) {
 
 function helpCommand(receivedMessage) {
     console.log(Object.keys(dict));
-    receivedMessage.channel.send("`Captain Cat` - Currently running version: `CAT." + buildVersion + "`"+ "\n" + "\n" + "Available Commands @Capt. Cat :" + "\n! `"+ Object.keys(dict)+"`");
+    receivedMessage.channel.send("`Captain Cat` - Currently running version: `CAT." + buildVersion + "`" + "\n" + "\n" + "Available Commands @Capt. Cat :" + "\n! `" + Object.keys(dict) + "`");
 
 }
 
@@ -169,38 +169,39 @@ function gitCommand(receivedMessage) {
     receivedMessage.channel.send(receivedMessage.author.toString() + " 🙀 My git repository = https://github.com/LexanderO/Cat_Discord_Bot.git 🙀")
 }
 
-function statusCommand(receivedMessage) {  
+function statusCommand(receivedMessage) {
     var userRegistered = false;
     var user = receivedMessage.author.toString();
     userRegistered = checkIfNewUser(receivedMessage);
 
-    for(var i=0; i < catStatus.luvToUsers.length; i++){
-        if(userRegistered && catStatus.luvToUsers[i].userName === user){
-            receivedMessage.channel.send(receivedMessage.author.toString() + "\n Hunger = "+ catStatus.hunger + "\n Fun = "+ catStatus.fun+ "\n Cat Luv = "+ catStatus.luvToUsers[i].userName + " " + catStatus.luvToUsers[i].luvs);
+    for (var i = 0; i < catStatus.luvToUsers.length; i++) {
+        if (userRegistered && catStatus.luvToUsers[i].userName === user) {
+            receivedMessage.channel.send(receivedMessage.author.toString() + "\n Hunger = " + catStatus.hunger + "\n Fun = " + catStatus.fun + "\n Cat Luv = " + catStatus.luvToUsers[i].userName + " " + catStatus.luvToUsers[i].luvs);
             console.log("Printed out -" + JSON.stringify(catStatus));
         }
-        else{
+        else {
 
         }
     }
 }
 
-function checkIfNewUser(receivedMessage){
+function checkIfNewUser(receivedMessage) {
     var user = receivedMessage.author.toString();
-    for(var i=0; i < catStatus.luvToUsers.length; i++){
-        if(catStatus.luvToUsers[i].userName === user){
+    for (var i = 0; i < catStatus.luvToUsers.length; i++) {
+        if (catStatus.luvToUsers[i].userName === user) {
             console.log("Exists -" + JSON.stringify(catStatus));
-            return true; 
-        }
-        else if (catStatus.luvToUsers[i].userName !== user) {
-            var data = {
-                "userName": user,
-                "luvs": 0
-            };
-            catStatus.luvToUsers.push(data);
-            console.log("Added -" + JSON.stringify(catStatus));
             return true;
-        }
+        }  
     }
+    addNewUser(user);
+    return true;
+}
 
+function addNewUser(user) {
+    var data = {
+        "userName": user,
+        "luvs": 0
+    };
+    catStatus.luvToUsers.push(data);
+    console.log("Added -" + JSON.stringify(catStatus));
 }
