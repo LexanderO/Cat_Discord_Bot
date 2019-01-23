@@ -192,7 +192,7 @@ function checkIfNewUser(receivedMessage){
             console.log("Exists -" + JSON.stringify(catStatus));
             return true; 
         }
-        else {
+        else if (catStatus.luvToUsers[i].userName !== user) {
             var data = {
                 "userName": user,
                 "luvs": 0
