@@ -172,7 +172,7 @@ function gitCommand(receivedMessage) {
 function statusCommand(receivedMessage) {  
     var userRegistered = false;
     var user = receivedMessage.author.toString();
-    userRegistered = checkIfNewUser(user);
+    userRegistered = checkIfNewUser(receivedMessage);
 
     for(var i=0; i < catStatus.luvToUsers.length; i++){
         if(userRegistered && catStatus.luvToUsers[i].userName == user){
@@ -184,7 +184,8 @@ function statusCommand(receivedMessage) {
     }
 }
 
-function checkIfNewUser(user){
+function checkIfNewUser(receivedMessage){
+    var user = receivedMessage.author.toString();
     for(var i=0; i < catStatus.luvToUsers.length; i++){
         if(catStatus.luvToUsers[i].userName == user){
             return true;
