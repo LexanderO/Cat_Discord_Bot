@@ -175,7 +175,7 @@ function statusCommand(receivedMessage) {
     userRegistered = checkIfNewUser(receivedMessage);
 
     for(var i=0; i < catStatus.luvToUsers.length; i++){
-        if(userRegistered && catStatus.luvToUsers[i].userName == user){
+        if(userRegistered && catStatus.luvToUsers[i].userName === user){
             receivedMessage.channel.send(receivedMessage.author.toString() + "\n Hunger = "+ catStatus.hunger + "\n Fun = "+ catStatus.fun+ "\n Cat Luv = "+ catStatus.luvToUsers[i].userName + " " + catStatus.luvToUsers[i].luvs);
             console.log("Printed out -" + JSON.stringify(catStatus));
         }
@@ -188,9 +188,9 @@ function statusCommand(receivedMessage) {
 function checkIfNewUser(receivedMessage){
     var user = receivedMessage.author.toString();
     for(var i=0; i < catStatus.luvToUsers.length; i++){
-        if(catStatus.luvToUsers[i].userName == user){
-            return true;
+        if(catStatus.luvToUsers[i].userName === user){
             console.log("Exists -" + JSON.stringify(catStatus));
+            return true; 
         }
         else {
             var data = {
@@ -198,8 +198,8 @@ function checkIfNewUser(receivedMessage){
                 "luvs": 0
             };
             catStatus.luvToUsers.push(data);
-            return true;
             console.log("Added -" + JSON.stringify(catStatus));
+            return true;
         }
     }
 
