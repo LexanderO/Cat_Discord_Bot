@@ -1,3 +1,4 @@
+const fs = require('fs');
 const Discord = require('discord.js');
 const queryString = require('querystring');
 const r2 = require('r2');
@@ -19,6 +20,9 @@ client.on('error', data => {
     // attempt reconnection x times, after x seconds, exponential backoff
 });
 
+let catData = fs.readFileSync('status_save.json');  
+var catStatus = JSON.parse(catData); 
+
 client.login(d_token);
 
 var dict = {
@@ -26,17 +30,18 @@ var dict = {
     "meow": meowRecieved,
     "pints": pintsCommand,
     "git": gitCommand,
-    "status": statusCommand
+    "status": statusCommand,
+    "save": saveCommand,
 };
 
-var catStatus = {
-    "hunger": 50,
-    "fun": 50,
-    "luvToUsers": [
-        { "userName": "user1", "luvs": 50 },
-        { "userName": "user2", "luvs": 50 },
-    ]
-};
+// var catStatus = {
+//     "hunger": 50,
+//     "fun": 50,
+//     "luvToUsers": [
+//         { "userName": "user1", "luvs": 50 },
+//         { "userName": "user2", "luvs": 50 },
+//     ]
+// };
 
 var catTimer = setInterval(function () { catActivity(); }, 900000);
 
@@ -204,4 +209,13 @@ function addNewUser(user) {
     };
     catStatus.luvToUsers.push(data);
     console.log("Added -" + JSON.stringify(catStatus));
+}
+
+function saveCommand(receivedMessage) {
+    let data = JSON.stringify(catStatus, null, 2);
+
+    fs.writeFile('status_save.json', data, (err) => {  
+        if (err) throw err;
+        console.log('Data written to file');
+    });
 }
