@@ -44,6 +44,7 @@ var dict = {
 // };
 
 var catTimer = setInterval(function () { catActivity(); }, 900000);
+var autoSaveStats = setInterval(function () { saveProgress(); }, 900000);
 
 function catActivity() {
     var catArray = ['opt1', 'opt2', 'opt3', 'opt4', 'opt5'];
@@ -212,6 +213,11 @@ function addNewUser(user) {
 }
 
 function saveCommand(receivedMessage) {
+    receivedMessage.channel.send("Current CAT Stats saved! 🙀");
+    saveProgress();
+}
+
+function saveProgress(){
     let data = JSON.stringify(catStatus, null, 2);
 
     fs.writeFile('status_save.json', data, (err) => {  
