@@ -2,7 +2,7 @@
     "hunger": 50,
     "fun": 50,
     "luvToUsers": [
-        { "userName": "user1", "luvs": 50 }
+        { "userName": "user1", "luvs": 50, "catLevel": 2, "levelProgress": 50}
         
     ]
 }
