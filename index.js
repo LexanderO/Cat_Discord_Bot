@@ -32,6 +32,7 @@ var dict = {
     "git": gitCommand,
     "status": statusCommand,
     "save": saveCommand,
+    "feed": feedCommand
 };
 
 // var catStatus = {
@@ -206,14 +207,16 @@ function checkIfNewUser(receivedMessage) {
 function addNewUser(user) {
     var data = {
         "userName": user,
-        "luvs": 0
+        "luvs": 0,
+        "catLevel": 0, 
+        "levelProgress": 0
     };
     catStatus.luvToUsers.push(data);
     console.log("Added -" + JSON.stringify(catStatus));
 }
 
 function saveCommand(receivedMessage) {
-    receivedMessage.channel.send("Current CAT Stats saved! 🙀");
+    receivedMessage.channel.send("Current CAT Stats saved! 😼");
     saveProgress();
 }
 
@@ -224,4 +227,37 @@ function saveProgress(){
         if (err) throw err;
         console.log('Data written to file');
     });
+}
+
+function feedCommand (receivedMessage) {
+    var catHunger = catStatus.hunger;
+    if (catHunger >= 90 && catHunger <= 100) {
+        receivedMessage.channel.send(receivedMessage.author.toString() + " 🙀 Too much food, not hungry 😼, purr-haps later")
+    }
+    else if (catHunger <= 89) {
+        var randomNumFeed = getRandomInt(10, 25);
+        var randomNumLuvs = getRandomInt(1, 4);
+        var randomNumLevelProgress = getRandomInt(5, 15);
+        catHunger = catHunger + randomNumFeed;
+        receivedMessage.channel.send(receivedMessage.author.toString() + "")
+
+        updatePersonalCatStats(receivedMessage, luvs, randomNumLuvs);
+        updatePersonalCatStats(receivedMessage, levelProgress, randomNumLevelProgress);
+    } 
+}
+
+function updatePersonalCatStats (receivedMessage, stat, value) {
+    var user = receivedMessage.author.toString();
+    for (var i = 0; i < catStatus.luvToUsers.length; i++) {
+        if (catStatus.luvToUsers[i].userName === user) {
+            catValue = catStatus.luvToUsers[i].stat;
+            catValue = catValue + value;
+        }  
+    }
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
