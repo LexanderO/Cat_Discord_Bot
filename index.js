@@ -238,8 +238,8 @@ function feedCommand(receivedMessage) {
         var randomNumFeed = getRandomInt(10, 25);
         var randomNumLuvs = getRandomInt(1, 4);
         var randomNumLevelProgress = getRandomInt(5, 15);
-        catHunger = catHunger + randomNumFeed;
-        console.log("Random Results & Feed " + catHunger + " " + randomNumLuvs + " " + randomNumLevelProgress);
+        catStatus.hunger = catHunger + randomNumFeed;
+        console.log("Random Results & Feed " + randomNumFeed + " " + randomNumLuvs + " " + randomNumLevelProgress);
         receivedMessage.channel.send(receivedMessage.author.toString() + " Paw-some food! I eat.. 😺")
 
         updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
@@ -254,12 +254,13 @@ function updatePersonalCatStats(receivedMessage, stat, value) {
             switch (stat) {
                 case "luvs":
                     catValue = catStatus.luvToUsers[i].luvs;
+                    catStatus.luvToUsers[i].luvs = catValue + value;
                     break;
                 case "levelProgress":
                     catValue = catStatus.luvToUsers[i].levelProgress;
+                    catStatus.luvToUsers[i].levelProgress = catValue + value;
                     break;
             }
-            catValue = catValue + value;
         }
     }
 }
