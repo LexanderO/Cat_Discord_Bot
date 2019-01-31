@@ -11,6 +11,9 @@ const CAT_API_URL = "https://api.thecatapi.com/"
 
 const buildVersion = process.env.npm_package_version;
 
+const luvs = luvs;
+const levelProgress = levelProgress;
+
 client.on('ready', () => {
     console.log("Connected as " + client.user.tag)
 });
@@ -240,7 +243,7 @@ function feedCommand (receivedMessage) {
         var randomNumLevelProgress = getRandomInt(5, 15);
         catHunger = catHunger + randomNumFeed;
         receivedMessage.channel.send(receivedMessage.author.toString() + "Paw-some food! I eat.. 😺")
-
+      
         updatePersonalCatStats(receivedMessage, luvs, randomNumLuvs);
         updatePersonalCatStats(receivedMessage, levelProgress, randomNumLevelProgress);
     } 
