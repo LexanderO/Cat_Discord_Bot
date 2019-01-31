@@ -11,9 +11,6 @@ const CAT_API_URL = "https://api.thecatapi.com/"
 
 const buildVersion = process.env.npm_package_version;
 
-const luvs = luvs;
-const levelProgress = levelProgress;
-
 client.on('ready', () => {
     console.log("Connected as " + client.user.tag)
 });
@@ -23,8 +20,8 @@ client.on('error', data => {
     // attempt reconnection x times, after x seconds, exponential backoff
 });
 
-let catData = fs.readFileSync('status_save.json');  
-var catStatus = JSON.parse(catData); 
+let catData = fs.readFileSync('status_save.json');
+var catStatus = JSON.parse(catData);
 
 client.login(d_token);
 
@@ -201,7 +198,7 @@ function checkIfNewUser(receivedMessage) {
         if (catStatus.luvToUsers[i].userName === user) {
             console.log("Exists -" + JSON.stringify(catStatus));
             return true;
-        }  
+        }
     }
     addNewUser(user);
     return true;
@@ -211,7 +208,7 @@ function addNewUser(user) {
     var data = {
         "userName": user,
         "luvs": 0,
-        "catLevel": 0, 
+        "catLevel": 0,
         "levelProgress": 0
     };
     catStatus.luvToUsers.push(data);
@@ -223,16 +220,16 @@ function saveCommand(receivedMessage) {
     saveProgress();
 }
 
-function saveProgress(){
+function saveProgress() {
     let data = JSON.stringify(catStatus, null, 2);
 
-    fs.writeFile('status_save.json', data, (err) => {  
+    fs.writeFile('status_save.json', data, (err) => {
         if (err) throw err;
         console.log('Data written to file');
     });
 }
 
-function feedCommand (receivedMessage) {
+function feedCommand(receivedMessage) {
     var catHunger = catStatus.hunger;
     if (catHunger >= 90 && catHunger <= 100) {
         receivedMessage.channel.send(receivedMessage.author.toString() + " 🙀 Too much food, not hungry 😼, purr-haps later")
@@ -243,19 +240,26 @@ function feedCommand (receivedMessage) {
         var randomNumLevelProgress = getRandomInt(5, 15);
         catHunger = catHunger + randomNumFeed;
         receivedMessage.channel.send(receivedMessage.author.toString() + "Paw-some food! I eat.. 😺")
-      
-        updatePersonalCatStats(receivedMessage, luvs, randomNumLuvs);
-        updatePersonalCatStats(receivedMessage, levelProgress, randomNumLevelProgress);
-    } 
+
+        updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
+        updatePersonalCatStats(receivedMessage, "levelProgress", randomNumLevelProgress);
+    }
 }
 
-function updatePersonalCatStats (receivedMessage, stat, value) {
+function updatePersonalCatStats(receivedMessage, stat, value) {
     var user = receivedMessage.author.toString();
     for (var i = 0; i < catStatus.luvToUsers.length; i++) {
         if (catStatus.luvToUsers[i].userName === user) {
-            catValue = catStatus.luvToUsers[i].stat;
+            switch (stat) {
+                case "luvs":
+                    catValue = catStatus.luvToUsers[i].luvs;
+                    break;
+                case "levelProgress":
+                    catValue = catStatus.luvToUsers[i].levelProgress;
+                    break;
+            }
             catValue = catValue + value;
-        }  
+        }
     }
 }
 
