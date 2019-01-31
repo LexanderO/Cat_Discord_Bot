@@ -240,6 +240,9 @@ function feedCommand(receivedMessage) {
         var randomNumLuvs = getRandomInt(1, 4);
         var randomNumLevelProgress = getRandomInt(5, 15);
         catStatus.hunger = catHunger + randomNumFeed;
+        if (catStatus.hunger >= 100) {
+            catStatus.hunger = 100;
+        }
         console.log("Random Results & Feed " + randomNumFeed + " " + randomNumLuvs + " " + randomNumLevelProgress);
         receivedMessage.channel.send(receivedMessage.author.toString() + " Paw-some food! I eat.. 😺")
 
@@ -256,10 +259,16 @@ function updatePersonalCatStats(receivedMessage, stat, value) {
                 case "luvs":
                     catValue = catStatus.luvToUsers[i].luvs;
                     catStatus.luvToUsers[i].luvs = catValue + value;
+                    if (catStatus.luvToUsers[i].luvs >= 100) {
+                        catStatus.luvToUsers[i].luvs = 100;
+                    }
                     break;
                 case "levelProgress":
                     catValue = catStatus.luvToUsers[i].levelProgress;
                     catStatus.luvToUsers[i].levelProgress = catValue + value;
+                    if (catStatus.luvToUsers[i].levelProgress >= 100) {
+                        catStatus.luvToUsers[i].levelProgress = 100;
+                    }
                     break;
             }
         }
@@ -272,7 +281,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function getHungry(){
+function getHungry() {
     var randomNumFeed = getRandomInt(1, 3);
     var catHunger = catStatus.hunger;
     catStatus.hunger = catHunger - randomNumFeed;
