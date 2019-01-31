@@ -27,7 +27,7 @@ client.login(d_token);
 
 var dict = {
     "help": helpCommand,
-    "meow": meowRecieved,
+    "meow": meowCommand,
     "pints": pintsCommand,
     "git": gitCommand,
     "status": statusCommand,
@@ -113,7 +113,7 @@ function helpCommand(receivedMessage) {
 
 }
 
-async function meowRecieved(receivedMessage) {
+async function meowCommand(receivedMessage) {
     try {
         var myCatArray = ['😻', '😽', '🙀', '😼', '😹', '😸', '😺'];
         var randCat = myCatArray[Math.floor(Math.random() * myCatArray.length)];
