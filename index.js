@@ -239,7 +239,7 @@ function feedCommand (receivedMessage) {
         var randomNumLuvs = getRandomInt(1, 4);
         var randomNumLevelProgress = getRandomInt(5, 15);
         catHunger = catHunger + randomNumFeed;
-        receivedMessage.channel.send(receivedMessage.author.toString() + "")
+        receivedMessage.channel.send(receivedMessage.author.toString() + "Paw-some food! I eat.. 😺")
 
         updatePersonalCatStats(receivedMessage, luvs, randomNumLuvs);
         updatePersonalCatStats(receivedMessage, levelProgress, randomNumLevelProgress);
