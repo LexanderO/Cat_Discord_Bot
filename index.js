@@ -46,6 +46,7 @@ var dict = {
 
 var catTimer = setInterval(function () { catActivity(); }, 900000);
 var autoSaveStats = setInterval(function () { saveProgress(); }, 900000);
+var autoGetHungry = setInterval(function () { getHungry(); }, 10000);
 
 function catActivity() {
     var catArray = ['opt1', 'opt2', 'opt3', 'opt4', 'opt5'];
@@ -269,4 +270,10 @@ function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getHungry(){
+    var randomNumFeed = getRandomInt(1, 3);
+    var catHunger = catStatus.hunger;
+    catStatus.hunger = catHunger - randomNumFeed;
 }
