@@ -294,7 +294,9 @@ function levelUp(receivedMessage) {
                 var level = catStatus.luvToUsers[i].catLevel;
                 catStatus.luvToUsers[i].catLevel + 1;
                 var resultLevel = catStatus.luvToUsers[i].catLevel;
-                receivedMessage.channel.send(receivedMessage.author.toString() + " Contrats!😺 You are now 🙀 `Lvl " + resultLevel +" Meowster` 🙀")
+                receivedMessage.channel.send(receivedMessage.author.toString() + " Contrats!😺 You are now 🙀 `Lvl " + resultLevel +" Meowster` 🙀");
+                var randomNumLuvs = getRandomInt(3, 8);
+                updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
             }
             else {
 
