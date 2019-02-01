@@ -32,7 +32,8 @@ var dict = {
     "git": gitCommand,
     "status": statusCommand,
     "save": saveCommand,
-    "feed": feedCommand
+    "feed": feedCommand,
+    "level": levelCommand
 };
 
 // var catStatus = {
