@@ -133,6 +133,10 @@ async function meowCommand(receivedMessage) {
             //"***"+breed.name + "*** \r *"+breed.temperament+"*", 
             { files: [image.url] });
         // if you didn't want to see the text, just send the file
+        var randomNumLuvs = getRandomInt(1, 3);
+        var randomNumLevelProgress = getRandomInt(3, 11);
+        updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
+        updatePersonalCatStats(receivedMessage, "levelProgress", randomNumLevelProgress);
 
     } catch (error) {
         console.log(error)
