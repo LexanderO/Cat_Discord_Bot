@@ -289,18 +289,28 @@ function levelUp(receivedMessage) {
     var user = receivedMessage.author.toString();
     for (var i = 0; i < catStatus.luvToUsers.length; i++) {
         if (catStatus.luvToUsers[i].userName === user) {
-            if(catStatus.luvToUsers[i].levelProgress >= 100){
+            if (catStatus.luvToUsers[i].levelProgress >= 100) {
                 catStatus.luvToUsers[i].levelProgress = 100;
                 var level = catStatus.luvToUsers[i].catLevel;
                 catStatus.luvToUsers[i].catLevel + 1;
                 var resultLevel = catStatus.luvToUsers[i].catLevel;
-                receivedMessage.channel.send(receivedMessage.author.toString() + " Contrats!😺 You are now 🙀 `Lvl " + resultLevel +" Meowster` 🙀");
+                receivedMessage.channel.send(receivedMessage.author.toString() + " Contrats!😺 You are now 🙀 `Lvl " + resultLevel + " Meowster` 🙀");
                 var randomNumLuvs = getRandomInt(3, 8);
                 updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
             }
             else {
 
             }
+        }
+    }
+}
+
+function levelCommand(receivedMessage) {
+    var user = receivedMessage.author.toString();
+    for (var i = 0; i < catStatus.luvToUsers.length; i++) {
+        if (catStatus.luvToUsers[i].userName === user) {
+            var resultLevel = catStatus.luvToUsers[i].catLevel;
+            receivedMessage.channel.send(receivedMessage.author.toString() + " 😺 `Lvl " + resultLevel + " Meowster` 😺");
         }
     }
 }
