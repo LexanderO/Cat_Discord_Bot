@@ -48,6 +48,7 @@ var dict = {
 var catTimer = setInterval(function () { catActivity(); }, 900000);
 var autoSaveStats = setInterval(function () { saveProgress(); }, 900000);
 var autoGetHungry = setInterval(function () { getHungry(); }, 10000);
+var autoMinusLuvs = setInterval(function () { minusLuvs(); }, 10000);
 
 function catActivity() {
     var catArray = ['opt1', 'opt2', 'opt3', 'opt4', 'opt5'];
@@ -317,5 +318,12 @@ function levelCommand(receivedMessage) {
             var resultLevel = catStatus.luvToUsers[i].catLevel;
             receivedMessage.channel.send(receivedMessage.author.toString() + " 😺 `Lvl " + resultLevel + " Meowster` 😺");
         }
+    }
+}
+
+function minusLuvs (){
+    for (var i = 0; i < catStatus.luvToUsers.length; i++) {
+        var luvs = catStatus.luvToUsers[i].luvs;
+        catStatus.luvToUsers[i].luvs = luvs - 1;
     }
 }
