@@ -249,8 +249,8 @@ function processStatus(category) {
     for (var i = 0; i < negativeStat; i++) {
         result += iconNeg;
     }
-        result += "}";
-        return result;
+    result += "}";
+    return result;
 }
 
 function checkIfNewUser(receivedMessage) {
@@ -343,6 +343,9 @@ function getHungry() {
     var randomNumFeed = getRandomInt(1, 3);
     var catHunger = catStatus.hunger;
     catStatus.hunger = catHunger - randomNumFeed;
+    if (catStatus.hunger <= 0) {
+        catStatus.hunger = 0;
+    }
 }
 
 function levelUp(receivedMessage) {
@@ -379,5 +382,8 @@ function minusLuvs() {
     for (var i = 0; i < catStatus.luvToUsers.length; i++) {
         var luvs = catStatus.luvToUsers[i].luvs;
         catStatus.luvToUsers[i].luvs = luvs - 1;
+        if (catStatus.luvToUsers[i].luvs <= 0) {
+            catStatus.luvToUsers[i].luvs = 0;
+        }
     }
 }
