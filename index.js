@@ -236,7 +236,7 @@ function processStatus(category) {
             break;
         case "fun":
             var positiveStat = Math.round(catStatus.fun / 10);
-            var iconPos = "🎮"
+            var iconPos = "😸"
             break;
     }
     var negativeStat = 10 - positiveStat;
