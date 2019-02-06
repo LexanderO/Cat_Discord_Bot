@@ -241,7 +241,7 @@ function processStatus(category) {
     }
     var negativeStat = 10 - positiveStat;
     var result = "{"
-    var iconNeg = "-";
+    var iconNeg = "✖";
 
     for (var i = 0; i < positiveStat; i++) {
         result += iconPos;
