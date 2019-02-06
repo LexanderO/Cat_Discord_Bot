@@ -47,8 +47,8 @@ var dict = {
 
 var catTimer = setInterval(function () { catActivity(); }, 900000);
 var autoSaveStats = setInterval(function () { saveProgress(); }, 900000);
-var autoGetHungry = setInterval(function () { getHungry(); }, 10000);
-var autoMinusLuvs = setInterval(function () { minusLuvs(); }, 10000);
+var autoGetHungry = setInterval(function () { getHungry(); }, 400000);
+var autoMinusLuvs = setInterval(function () { minusLuvs(); }, 900000);
 
 function catActivity() {
     var catArray = ['opt1', 'opt2', 'opt3', 'opt4', 'opt5'];
