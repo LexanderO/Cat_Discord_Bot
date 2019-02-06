@@ -190,13 +190,67 @@ function statusCommand(receivedMessage) {
 
     for (var i = 0; i < catStatus.luvToUsers.length; i++) {
         if (userRegistered && catStatus.luvToUsers[i].userName === user) {
-            receivedMessage.channel.send(receivedMessage.author.toString() + "\n Hunger = " + catStatus.hunger + "\n Fun = " + catStatus.fun + "\n Cat Luv = " + catStatus.luvToUsers[i].userName + " " + catStatus.luvToUsers[i].luvs);
+            //receivedMessage.channel.send(receivedMessage.author.toString() + "\n Hunger = " + catStatus.hunger + "\n Fun = " + catStatus.fun + "\n Cat Luv = " + catStatus.luvToUsers[i].userName + " " + catStatus.luvToUsers[i].luvs);
             console.log("Printed out -" + JSON.stringify(catStatus));
+            var hungerResult = processStatus("hunger");
+            var funResult = processStatus("fun");
+
+            receivedMessage.channel.send({
+                embed: {
+                    color: 3447003,
+                    author: {
+                        name: receivedMessage.author.username,
+                        icon_url: receivedMessage.author.avatarURL
+                    },
+                    title: "Cat Status",
+                    url: "",
+                    description: "",
+                    fields: [{
+                        name: "Hunger",
+                        value: hungerResult
+                    },
+                    {
+                        name: "Fun",
+                        value: funResult
+                    }
+                    ],
+                    timestamp: new Date(),
+                    footer: {
+                        icon_url: client.user.avatarURL,
+                        text: buildVersion
+                    }
+                }
+            });
         }
         else {
 
         }
     }
+}
+
+function processStatus(category) {
+    switch (category) {
+        case "hunger":
+            var positiveStat = Math.round(catStatus.hunger / 10);
+            var iconPos = "🍕"
+            break;
+        case "fun":
+            var positiveStat = Math.round(catStatus.fun / 10);
+            var iconPos = "🎮"
+            break;
+    }
+    var negativeStat = 10 - positiveStat;
+    var result = "{"
+    var iconNeg = "-";
+
+    for (var i = 0; i < positiveStat; i++) {
+        result += iconPos;
+    }
+    for (var i = 0; i < negativeStat; i++) {
+        result += iconNeg;
+    }
+        result += "}";
+        return result;
 }
 
 function checkIfNewUser(receivedMessage) {
@@ -321,7 +375,7 @@ function levelCommand(receivedMessage) {
     }
 }
 
-function minusLuvs (){
+function minusLuvs() {
     for (var i = 0; i < catStatus.luvToUsers.length; i++) {
         var luvs = catStatus.luvToUsers[i].luvs;
         catStatus.luvToUsers[i].luvs = luvs - 1;
