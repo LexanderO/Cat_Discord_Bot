@@ -250,7 +250,7 @@ function processStatus(category, value) {
             break;
         case "luvs":
             var positiveStat = Math.round(value / 10);
-            var iconPos = "💝"
+            var iconPos = "😻"
             break;
         case "levelProgress":
             var positiveStat = Math.round(value / 10);
