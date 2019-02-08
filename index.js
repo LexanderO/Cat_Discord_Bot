@@ -192,8 +192,10 @@ function statusCommand(receivedMessage) {
         if (userRegistered && catStatus.luvToUsers[i].userName === user) {
             //receivedMessage.channel.send(receivedMessage.author.toString() + "\n Hunger = " + catStatus.hunger + "\n Fun = " + catStatus.fun + "\n Cat Luv = " + catStatus.luvToUsers[i].userName + " " + catStatus.luvToUsers[i].luvs);
             console.log("Printed out -" + JSON.stringify(catStatus));
-            var hungerResult = processStatus("hunger");
-            var funResult = processStatus("fun");
+            var hungerResult = processStatus("hunger", 0);
+            var funResult = processStatus("fun", 0);
+            var luvsResult = processStatus("luvs", catStatus.luvToUsers[i].luvs);
+            var levelProgressResult = processStatus("levelProgress", catStatus.luvToUsers[i].levelProgress);
 
             receivedMessage.channel.send({
                 embed: {
@@ -212,6 +214,14 @@ function statusCommand(receivedMessage) {
                     {
                         name: "Fun",
                         value: funResult
+                    },
+                    {
+                        name: "Cat 💕 for you",
+                        value: luvsResult
+                    },
+                    {
+                        name: "Your Level Progress",
+                        value: levelProgressResult
                     }
                     ],
                     timestamp: new Date(),
@@ -228,7 +238,7 @@ function statusCommand(receivedMessage) {
     }
 }
 
-function processStatus(category) {
+function processStatus(category, value) {
     switch (category) {
         case "hunger":
             var positiveStat = Math.round(catStatus.hunger / 10);
@@ -237,6 +247,14 @@ function processStatus(category) {
         case "fun":
             var positiveStat = Math.round(catStatus.fun / 10);
             var iconPos = "😸"
+            break;
+        case "luvs":
+            var positiveStat = Math.round(value / 10);
+            var iconPos = "💝"
+            break;
+        case "levelProgress":
+            var positiveStat = Math.round(value / 10);
+            var iconPos = "👌"
             break;
     }
     var negativeStat = 10 - positiveStat;
