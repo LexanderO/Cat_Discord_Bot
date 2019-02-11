@@ -33,6 +33,7 @@ var dict = {
     "status": statusCommand,
     "save": saveCommand,
     "feed": feedCommand,
+    "pet": petCommand,
     "level": levelCommand
 };
 
@@ -328,6 +329,28 @@ function feedCommand(receivedMessage) {
         var foodArray = ["Tuna", "Pizza", "Catnip", "Cookies", "Cake", "Breakfast roll", "Sushi", "Chicken Curry", "Pancakes", "Salad", "Pasta", "Crisps", "Pot Noodles", "Yaki Soba"];
         var rand = foodArray[Math.floor(Math.random() * foodArray.length)];
         receivedMessage.channel.send(receivedMessage.author.toString() + " Paw-some food! I eat.. "+ rand +" 😺              +🍕%")
+
+        updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
+        updatePersonalCatStats(receivedMessage, "levelProgress", randomNumLevelProgress);
+    }
+}
+
+function petCommand(receivedMessage){
+    var catFun = catStatus.fun;
+    if (catFun >= 90 && catFun <= 100) {
+        receivedMessage.channel.send(receivedMessage.author.toString() + " 🙀 Ppuurrr.. I feline great!.. 😺 PpuuurrRRRrrr..")
+    }
+    else if (catFun <= 89) {
+        var randomNumFun = getRandomInt(10, 25);
+        var randomNumLuvs = getRandomInt(1, 4);
+        var randomNumLevelProgress = getRandomInt(5, 15);
+        catStatus.fun = catFun + randomNumFun;
+        if (catStatus.fun >= 100) {
+            catStatus.fun = 100;
+        }
+        var funArray = [];
+        var rand = foodArray[Math.floor(Math.random() * funArray.length)];
+        receivedMessage.channel.send(receivedMessage.author.toString() + ""+ rand +" 😺              +")
 
         updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
         updatePersonalCatStats(receivedMessage, "levelProgress", randomNumLevelProgress);
