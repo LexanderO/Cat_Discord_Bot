@@ -321,8 +321,9 @@ function feedCommand(receivedMessage) {
         if (catStatus.hunger >= 100) {
             catStatus.hunger = 100;
         }
-        console.log("Random Results & Feed " + randomNumFeed + " " + randomNumLuvs + " " + randomNumLevelProgress);
-        receivedMessage.channel.send(receivedMessage.author.toString() + " Paw-some food! I eat.. 😺")
+        var foodArray = ["Tuna", "Pizza", "Catnip", "Cookies", "Cake", "Breakfast roll", "Sushi", "Chicken Curry", "Pancakes", "Salad", "Pasta", "Crisps", "Pot Noodles", "Yaki Soba"];
+        var rand = foodArray[Math.floor(Math.random() * foodArray.length)];
+        receivedMessage.channel.send(receivedMessage.author.toString() + " Paw-some food! I eat.. "+ rand +" 😺              +🍕%")
 
         updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
         updatePersonalCatStats(receivedMessage, "levelProgress", randomNumLevelProgress);
