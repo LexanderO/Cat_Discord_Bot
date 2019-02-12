@@ -314,24 +314,32 @@ function saveProgress() {
 }
 
 function feedCommand(receivedMessage) {
-    var catHunger = catStatus.hunger;
-    if (catHunger >= 90 && catHunger <= 100) {
-        receivedMessage.channel.send(receivedMessage.author.toString() + " 🙀 Too much food, not hungry 😼, purr-haps later")
-    }
-    else if (catHunger <= 89) {
-        var randomNumFeed = getRandomInt(10, 25);
-        var randomNumLuvs = getRandomInt(1, 4);
-        var randomNumLevelProgress = getRandomInt(5, 15);
-        catStatus.hunger = catHunger + randomNumFeed;
-        if (catStatus.hunger >= 100) {
-            catStatus.hunger = 100;
-        }
-        var foodArray = ["Tuna", "Pizza", "Catnip", "Cookies", "Cake", "Breakfast roll", "Sushi", "Chicken Curry", "Pancakes", "Salad", "Pasta", "Crisps", "Pot Noodles", "Yaki Soba"];
-        var rand = foodArray[Math.floor(Math.random() * foodArray.length)];
-        receivedMessage.channel.send(receivedMessage.author.toString() + " Paw-some food! I eat.. " + rand + " 😺              +🍕%")
+    var userRegistered = false;
+    var user = receivedMessage.author.toString();
+    userRegistered = checkIfNewUser(receivedMessage);
 
-        updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
-        updatePersonalCatStats(receivedMessage, "levelProgress", randomNumLevelProgress);
+    for (var i = 0; i < catStatus.luvToUsers.length; i++) {
+        if (userRegistered && catStatus.luvToUsers[i].userName === user) {
+            var catHunger = catStatus.hunger;
+            if (catHunger >= 90 && catHunger <= 100) {
+                receivedMessage.channel.send(receivedMessage.author.toString() + " 🙀 Too much food, not hungry 😼, purr-haps later")
+            }
+            else if (catHunger <= 89) {
+                var randomNumFeed = getRandomInt(10, 25);
+                var randomNumLuvs = getRandomInt(1, 4);
+                var randomNumLevelProgress = getRandomInt(5, 15);
+                catStatus.hunger = catHunger + randomNumFeed;
+                if (catStatus.hunger >= 100) {
+                    catStatus.hunger = 100;
+                }
+                var foodArray = ["Tuna", "Pizza", "Catnip", "Cookies", "Cake", "Breakfast roll", "Sushi", "Chicken Curry", "Pancakes", "Salad", "Pasta", "Crisps", "Pot Noodles", "Yaki Soba"];
+                var rand = foodArray[Math.floor(Math.random() * foodArray.length)];
+                receivedMessage.channel.send(receivedMessage.author.toString() + " Paw-some food! I eat.. " + rand + " 😺              +🍕%")
+
+                updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
+                updatePersonalCatStats(receivedMessage, "levelProgress", randomNumLevelProgress);
+            }
+        }
     }
 }
 
