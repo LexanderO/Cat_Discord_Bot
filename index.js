@@ -124,28 +124,36 @@ function reactReceivedMessage(receivedMessage) {
 }
 
 async function meowCommand(receivedMessage) {
-    try {
-        reactReceivedMessage(receivedMessage);
-        // pass the name of the user who sent the message for stats later, expect an array of images to be returned.
-        var images = await loadImage(receivedMessage.author.username);
+    var userRegistered = false;
+    var user = receivedMessage.author.toString();
+    userRegistered = checkIfNewUser(receivedMessage);
 
-        // get the Image, and first Breed from the returned object.
-        var image = images[0];
-        var breed = image.breeds[0];
+    for (var i = 0; i < catStatus.luvToUsers.length; i++) {
+        if (userRegistered && catStatus.luvToUsers[i].userName === user) {
+            try {
+                reactReceivedMessage(receivedMessage);
+                // pass the name of the user who sent the message for stats later, expect an array of images to be returned.
+                var images = await loadImage(receivedMessage.author.username);
 
-        console.log('message processed', 'showing', breed)
-        // use the *** to make text bold, and * to make italic
-        receivedMessage.channel.send("Meow 🐈",
-            //"***"+breed.name + "*** \r *"+breed.temperament+"*", 
-            { files: [image.url] });
-        // if you didn't want to see the text, just send the file
-        var randomNumLuvs = getRandomInt(1, 3);
-        var randomNumLevelProgress = getRandomInt(3, 11);
-        updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
-        updatePersonalCatStats(receivedMessage, "levelProgress", randomNumLevelProgress);
+                // get the Image, and first Breed from the returned object.
+                var image = images[0];
+                var breed = image.breeds[0];
 
-    } catch (error) {
-        console.log(error)
+                console.log('message processed', 'showing', breed)
+                // use the *** to make text bold, and * to make italic
+                receivedMessage.channel.send("Meow 🐈",
+                    //"***"+breed.name + "*** \r *"+breed.temperament+"*", 
+                    { files: [image.url] });
+                // if you didn't want to see the text, just send the file
+                var randomNumLuvs = getRandomInt(1, 3);
+                var randomNumLevelProgress = getRandomInt(3, 11);
+                updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
+                updatePersonalCatStats(receivedMessage, "levelProgress", randomNumLevelProgress);
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
     }
 }
 
