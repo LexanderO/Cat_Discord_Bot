@@ -117,7 +117,7 @@ function helpCommand(receivedMessage) {
 
 }
 
-function reactReceivedMessage(receivedMessage){
+function reactReceivedMessage(receivedMessage) {
     var myCatArray = ['😻', '😽', '🙀', '😼', '😹', '😸', '😺'];
     var randCat = myCatArray[Math.floor(Math.random() * myCatArray.length)];
     receivedMessage.react(randCat)
@@ -328,32 +328,43 @@ function feedCommand(receivedMessage) {
         }
         var foodArray = ["Tuna", "Pizza", "Catnip", "Cookies", "Cake", "Breakfast roll", "Sushi", "Chicken Curry", "Pancakes", "Salad", "Pasta", "Crisps", "Pot Noodles", "Yaki Soba"];
         var rand = foodArray[Math.floor(Math.random() * foodArray.length)];
-        receivedMessage.channel.send(receivedMessage.author.toString() + " Paw-some food! I eat.. "+ rand +" 😺              +🍕%")
+        receivedMessage.channel.send(receivedMessage.author.toString() + " Paw-some food! I eat.. " + rand + " 😺              +🍕%")
 
         updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
         updatePersonalCatStats(receivedMessage, "levelProgress", randomNumLevelProgress);
     }
 }
 
-function petCommand(receivedMessage){
-    var catFun = catStatus.fun;
-    if (catFun >= 90 && catFun <= 100) {
-        receivedMessage.channel.send(receivedMessage.author.toString() + " 🙀 Ppuurrr.. I feline great!.. 😺 PpuuurrRRRrrr..")
-    }
-    else if (catFun <= 89) {
-        var randomNumFun = getRandomInt(10, 25);
-        var randomNumLuvs = getRandomInt(1, 4);
-        var randomNumLevelProgress = getRandomInt(5, 15);
-        catStatus.fun = catFun + randomNumFun;
-        if (catStatus.fun >= 100) {
-            catStatus.fun = 100;
-        }
-        var funArray = [];
-        var rand = foodArray[Math.floor(Math.random() * funArray.length)];
-        receivedMessage.channel.send(receivedMessage.author.toString() + ""+ rand +" 😺              +")
+function petCommand(receivedMessage) {
+    var userRegistered = false;
+    var user = receivedMessage.author.toString();
+    userRegistered = checkIfNewUser(receivedMessage);
 
-        updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
-        updatePersonalCatStats(receivedMessage, "levelProgress", randomNumLevelProgress);
+    for (var i = 0; i < catStatus.luvToUsers.length; i++) {
+        if (userRegistered && catStatus.luvToUsers[i].userName === user) {
+            var catFun = catStatus.fun;
+            if (catFun >= 90 && catFun <= 100) {
+                receivedMessage.channel.send(receivedMessage.author.toString() + " 🙀 Ppuurrr.. I feline great!.. 😺 PpuuurrRRRrrr..")
+            }
+            else if (catFun <= 89 && catStatus.hunger >= 35) {
+                var randomNumFun = getRandomInt(10, 25);
+                var randomNumLuvs = getRandomInt(1, 4);
+                var randomNumLevelProgress = getRandomInt(5, 15);
+                catStatus.fun = catFun + randomNumFun;
+                if (catStatus.fun >= 100) {
+                    catStatus.fun = 100;
+                }
+                var funArray = [];
+                var rand = foodArray[Math.floor(Math.random() * funArray.length)];
+                receivedMessage.channel.send(receivedMessage.author.toString() + "" + rand + " 😺              +")
+
+                updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
+                updatePersonalCatStats(receivedMessage, "levelProgress", randomNumLevelProgress);
+            }
+        }
+        else {
+
+        }
     }
 }
 
