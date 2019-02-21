@@ -1,3 +1,4 @@
+const fs = require('fs');
 const Discord = require('discord.js');
 const queryString = require('querystring');
 const r2 = require('r2');
@@ -19,16 +20,37 @@ client.on('error', data => {
     // attempt reconnection x times, after x seconds, exponential backoff
 });
 
+let catData = fs.readFileSync('status_save.json');
+var catStatus = JSON.parse(catData);
+
 client.login(d_token);
 
 var dict = {
     "help": helpCommand,
-    "meow": meowRecieved,
+    "meow": meowCommand,
     "pints": pintsCommand,
-    "git": gitCommand
+    "git": gitCommand,
+    "status": statusCommand,
+    "save": saveCommand,
+    "feed": feedCommand,
+    "pet": petCommand,
+    "level": levelCommand
 };
 
+// var catStatus = {
+//     "hunger": 50,
+//     "fun": 50,
+//     "luvToUsers": [
+//         { "userName": "user1", "luvs": 50 },
+//         { "userName": "user2", "luvs": 50 },
+//     ]
+// };
+
 var catTimer = setInterval(function () { catActivity(); }, 900000);
+var autoSaveStats = setInterval(function () { saveProgress(); }, 900000);
+var autoGetHungry = setInterval(function () { getHungry(); }, 400000);
+var autoGetBored = setInterval(function () { getBored(); }, 400000);
+var autoMinusLuvs = setInterval(function () { minusLuvs(); }, 900000);
 
 function catActivity() {
     var catArray = ['opt1', 'opt2', 'opt3', 'opt4', 'opt5'];
@@ -91,32 +113,47 @@ function searhCommand(receivedMessage, primaryCommand, arguments) {
 
 function helpCommand(receivedMessage) {
     console.log(Object.keys(dict));
-    receivedMessage.channel.send("`Captain Cat` - Currently running version: `CAT." + buildVersion + "`"+ "\n" + "\n" + "Available Commands @Capt. Cat :" + "\n! `"+ Object.keys(dict)+"`");
+    receivedMessage.channel.send("`Captain Cat` - Currently running version: `CAT." + buildVersion + "`" + "\n" + "\n" + "Available Commands @Capt. Cat :" + "\n! `" + Object.keys(dict) + "`");
 
 }
 
-async function meowRecieved(receivedMessage) {
-    try {
-        var myCatArray = ['😻', '😽', '🙀', '😼', '😹', '😸', '😺'];
-        var randCat = myCatArray[Math.floor(Math.random() * myCatArray.length)];
-        receivedMessage.react(randCat)
+function reactReceivedMessage(receivedMessage) {
+    var myCatArray = ['😻', '😽', '🙀', '😼', '😹', '😸', '😺'];
+    var randCat = myCatArray[Math.floor(Math.random() * myCatArray.length)];
+    receivedMessage.react(randCat)
+}
 
-        // pass the name of the user who sent the message for stats later, expect an array of images to be returned.
-        var images = await loadImage(receivedMessage.author.username);
+async function meowCommand(receivedMessage) {
+    var userRegistered = false;
+    var user = receivedMessage.author.toString();
+    userRegistered = checkIfNewUser(receivedMessage);
 
-        // get the Image, and first Breed from the returned object.
-        var image = images[0];
-        var breed = image.breeds[0];
+    for (var i = 0; i < catStatus.luvToUsers.length; i++) {
+        if (userRegistered && catStatus.luvToUsers[i].userName === user) {
+            try {
+                reactReceivedMessage(receivedMessage);
+                // pass the name of the user who sent the message for stats later, expect an array of images to be returned.
+                var images = await loadImage(receivedMessage.author.username);
 
-        console.log('message processed', 'showing', breed)
-        // use the *** to make text bold, and * to make italic
-        receivedMessage.channel.send("Meow 🐈",
-            //"***"+breed.name + "*** \r *"+breed.temperament+"*", 
-            { files: [image.url] });
-        // if you didn't want to see the text, just send the file
+                // get the Image, and first Breed from the returned object.
+                var image = images[0];
+                var breed = image.breeds[0];
 
-    } catch (error) {
-        console.log(error)
+                console.log('message processed', 'showing', breed)
+                // use the *** to make text bold, and * to make italic
+                receivedMessage.channel.send("Meow 🐈",
+                    //"***"+breed.name + "*** \r *"+breed.temperament+"*", 
+                    { files: [image.url] });
+                // if you didn't want to see the text, just send the file
+                var randomNumLuvs = getRandomInt(1, 3);
+                var randomNumLevelProgress = getRandomInt(3, 11);
+                updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
+                updatePersonalCatStats(receivedMessage, "levelProgress", randomNumLevelProgress);
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
     }
 }
 
@@ -157,4 +194,276 @@ function pintsCommand(receivedMessage) {
 
 function gitCommand(receivedMessage) {
     receivedMessage.channel.send(receivedMessage.author.toString() + " 🙀 My git repository = https://github.com/LexanderO/Cat_Discord_Bot.git 🙀")
+}
+
+function statusCommand(receivedMessage) {
+    var userRegistered = false;
+    var user = receivedMessage.author.toString();
+    userRegistered = checkIfNewUser(receivedMessage);
+
+    for (var i = 0; i < catStatus.luvToUsers.length; i++) {
+        if (userRegistered && catStatus.luvToUsers[i].userName === user) {
+            //receivedMessage.channel.send(receivedMessage.author.toString() + "\n Hunger = " + catStatus.hunger + "\n Fun = " + catStatus.fun + "\n Cat Luv = " + catStatus.luvToUsers[i].userName + " " + catStatus.luvToUsers[i].luvs);
+            console.log("Printed out -" + JSON.stringify(catStatus));
+            var hungerResult = processStatus("hunger", 0);
+            var funResult = processStatus("fun", 0);
+            var luvsResult = processStatus("luvs", catStatus.luvToUsers[i].luvs);
+            var levelProgressResult = processStatus("levelProgress", catStatus.luvToUsers[i].levelProgress);
+
+            receivedMessage.channel.send({
+                embed: {
+                    color: 3447003,
+                    author: {
+                        name: receivedMessage.author.username,
+                        icon_url: receivedMessage.author.avatarURL
+                    },
+                    title: "Cat Status",
+                    url: "",
+                    description: "",
+                    fields: [{
+                        name: "Hunger",
+                        value: hungerResult
+                    },
+                    {
+                        name: "Fun",
+                        value: funResult
+                    },
+                    {
+                        name: "Cat 💕 for you",
+                        value: luvsResult
+                    },
+                    {
+                        name: "Your Level Progress",
+                        value: levelProgressResult
+                    }
+                    ],
+                    timestamp: new Date(),
+                    footer: {
+                        icon_url: client.user.avatarURL,
+                        text: buildVersion
+                    }
+                }
+            });
+        }
+        else {
+
+        }
+    }
+}
+
+function processStatus(category, value) {
+    switch (category) {
+        case "hunger":
+            var positiveStat = Math.round(catStatus.hunger / 10);
+            var iconPos = "🍕"
+            break;
+        case "fun":
+            var positiveStat = Math.round(catStatus.fun / 10);
+            var iconPos = "😸"
+            break;
+        case "luvs":
+            var positiveStat = Math.round(value / 10);
+            var iconPos = "😻"
+            break;
+        case "levelProgress":
+            var positiveStat = Math.round(value / 10);
+            var iconPos = "👌"
+            break;
+    }
+    var negativeStat = 10 - positiveStat;
+    var result = "{"
+    var iconNeg = "✖";
+
+    for (var i = 0; i < positiveStat; i++) {
+        result += iconPos;
+    }
+    for (var i = 0; i < negativeStat; i++) {
+        result += iconNeg;
+    }
+    result += "}";
+    return result;
+}
+
+function checkIfNewUser(receivedMessage) {
+    var user = receivedMessage.author.toString();
+    for (var i = 0; i < catStatus.luvToUsers.length; i++) {
+        if (catStatus.luvToUsers[i].userName === user) {
+            console.log("Exists -" + JSON.stringify(catStatus));
+            return true;
+        }
+    }
+    addNewUser(user);
+    return true;
+}
+
+function addNewUser(user) {
+    var data = {
+        "userName": user,
+        "luvs": 0,
+        "catLevel": 0,
+        "levelProgress": 0
+    };
+    catStatus.luvToUsers.push(data);
+    console.log("Added -" + JSON.stringify(catStatus));
+}
+
+function saveCommand(receivedMessage) {
+    receivedMessage.channel.send("Current CAT Stats saved! 😼");
+    saveProgress();
+}
+
+function saveProgress() {
+    let data = JSON.stringify(catStatus, null, 2);
+
+    fs.writeFile('status_save.json', data, (err) => {
+        if (err) throw err;
+        console.log('Data written to file');
+    });
+}
+
+function feedCommand(receivedMessage) {
+    var userRegistered = false;
+    var user = receivedMessage.author.toString();
+    userRegistered = checkIfNewUser(receivedMessage);
+
+    for (var i = 0; i < catStatus.luvToUsers.length; i++) {
+        if (userRegistered && catStatus.luvToUsers[i].userName === user) {
+            var catHunger = catStatus.hunger;
+            if (catHunger >= 90 && catHunger <= 100) {
+                receivedMessage.channel.send(receivedMessage.author.toString() + " 🙀 Too much food, not hungry 😼, purr-haps later")
+            }
+            else if (catHunger <= 89) {
+                var randomNumFeed = getRandomInt(10, 25);
+                var randomNumLuvs = getRandomInt(1, 4);
+                var randomNumLevelProgress = getRandomInt(5, 15);
+                catStatus.hunger = catHunger + randomNumFeed;
+                if (catStatus.hunger >= 100) {
+                    catStatus.hunger = 100;
+                }
+                var foodArray = ["Tuna", "Pizza", "Catnip", "Cookies", "Cake", "Breakfast roll", "Sushi", "Chicken Curry", "Pancakes", "Salad", "Pasta", "Crisps", "Pot Noodles", "Yaki Soba"];
+                var rand = foodArray[Math.floor(Math.random() * foodArray.length)];
+                receivedMessage.channel.send(receivedMessage.author.toString() + " Paw-some food! I eat.. " + rand + " 😺")
+
+                updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
+                updatePersonalCatStats(receivedMessage, "levelProgress", randomNumLevelProgress);
+            }
+        }
+    }
+}
+
+function petCommand(receivedMessage) {
+    var userRegistered = false;
+    var user = receivedMessage.author.toString();
+    userRegistered = checkIfNewUser(receivedMessage);
+
+    for (var i = 0; i < catStatus.luvToUsers.length; i++) {
+        if (userRegistered && catStatus.luvToUsers[i].userName === user) {
+            var catFun = catStatus.fun;
+            if (catFun >= 90 && catFun <= 100) {
+                receivedMessage.channel.send(receivedMessage.author.toString() + "Hissss")
+            }
+            else if (catFun <= 89 && catStatus.hunger >= 35) {
+                var randomNumFun = getRandomInt(10, 25);
+                var randomNumLuvs = getRandomInt(1, 4);
+                var randomNumLevelProgress = getRandomInt(5, 15);
+                catStatus.fun = catFun + randomNumFun;
+                if (catStatus.fun >= 100) {
+                    catStatus.fun = 100;
+                }
+                var funArray = ["Cat Massage! Purrr","🙀 Catnip 🙀", "Head bunting you","Purrr Purr","Sits on your lap","Rolls on the floor uncontrollably","🙀 Ppuurrr.. I feline great!.. 😺 PpuuurrRRRrrr..","Scratches your furtniture","Pat pat on the back",];
+                var rand = funArray[Math.floor(Math.random() * funArray.length)];
+                receivedMessage.channel.send(receivedMessage.author.toString() + " " + rand + " 😺")
+
+                updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
+                updatePersonalCatStats(receivedMessage, "levelProgress", randomNumLevelProgress);
+            }
+        }
+        else {
+
+        }
+    }
+}
+
+function updatePersonalCatStats(receivedMessage, stat, value) {
+    var user = receivedMessage.author.toString();
+    for (var i = 0; i < catStatus.luvToUsers.length; i++) {
+        if (catStatus.luvToUsers[i].userName === user) {
+            switch (stat) {
+                case "luvs":
+                    catValue = catStatus.luvToUsers[i].luvs;
+                    catStatus.luvToUsers[i].luvs = catValue + value;
+                    if (catStatus.luvToUsers[i].luvs >= 100) {
+                        catStatus.luvToUsers[i].luvs = 100;
+                    }
+                    break;
+                case "levelProgress":
+                    catValue = catStatus.luvToUsers[i].levelProgress;
+                    catStatus.luvToUsers[i].levelProgress = catValue + value;
+                    levelUp(receivedMessage);
+                    break;
+            }
+        }
+    }
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getHungry() {
+    var randomNumFeed = getRandomInt(1, 3);
+    var catHunger = catStatus.hunger;
+    catStatus.hunger = catHunger - randomNumFeed;
+    if (catStatus.hunger <= 0) {
+        catStatus.hunger = 0;
+    }
+}
+
+function getBored() {
+    var randomNumFun = getRandomInt(1, 3);
+    var catFun = catStatus.fun;
+    catStatus.fun = catFun - randomNumFun;
+    if (catStatus.fun <= 0) {
+        catStatus.fun = 0;
+    }
+}
+
+function levelUp(receivedMessage) {
+    var user = receivedMessage.author.toString();
+    for (var i = 0; i < catStatus.luvToUsers.length; i++) {
+        if (catStatus.luvToUsers[i].userName === user) {
+            if (catStatus.luvToUsers[i].levelProgress >= 100) {
+                catStatus.luvToUsers[i].levelProgress = 0;
+                var level = catStatus.luvToUsers[i].catLevel + 1;
+                receivedMessage.channel.send(receivedMessage.author.toString() + " Congrats! 😺 You are now 🙀 `Lvl " + level + " Meowster` 🙀");
+                var randomNumLuvs = getRandomInt(3, 8);
+                updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
+            }
+            else {
+
+            }
+        }
+    }
+}
+
+function levelCommand(receivedMessage) {
+    var user = receivedMessage.author.toString();
+    for (var i = 0; i < catStatus.luvToUsers.length; i++) {
+        if (catStatus.luvToUsers[i].userName === user) {
+            var resultLevel = catStatus.luvToUsers[i].catLevel;
+            receivedMessage.channel.send(receivedMessage.author.toString() + " 😺 `Lvl " + resultLevel + " Meowster` 😺");
+        }
+    }
+}
+
+function minusLuvs() {
+    for (var i = 0; i < catStatus.luvToUsers.length; i++) {
+        var luvs = catStatus.luvToUsers[i].luvs;
+        catStatus.luvToUsers[i].luvs = luvs - 1;
+        if (catStatus.luvToUsers[i].luvs <= 0) {
+            catStatus.luvToUsers[i].luvs = 0;
+        }
+    }
 }
