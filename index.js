@@ -342,7 +342,7 @@ function feedCommand(receivedMessage) {
                 }
                 var foodArray = ["Tuna", "Pizza", "Catnip", "Cookies", "Cake", "Breakfast roll", "Sushi", "Chicken Curry", "Pancakes", "Salad", "Pasta", "Crisps", "Pot Noodles", "Yaki Soba"];
                 var rand = foodArray[Math.floor(Math.random() * foodArray.length)];
-                receivedMessage.channel.send(receivedMessage.author.toString() + " Paw-some food! I eat.. " + rand + " 😺              +🍕%")
+                receivedMessage.channel.send(receivedMessage.author.toString() + " Paw-some food! I eat.. " + rand + " 😺")
 
                 updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
                 updatePersonalCatStats(receivedMessage, "levelProgress", randomNumLevelProgress);
@@ -360,7 +360,7 @@ function petCommand(receivedMessage) {
         if (userRegistered && catStatus.luvToUsers[i].userName === user) {
             var catFun = catStatus.fun;
             if (catFun >= 90 && catFun <= 100) {
-                receivedMessage.channel.send(receivedMessage.author.toString() + " 🙀 Ppuurrr.. I feline great!.. 😺 PpuuurrRRRrrr..")
+                receivedMessage.channel.send(receivedMessage.author.toString() + "Hissss")
             }
             else if (catFun <= 89 && catStatus.hunger >= 35) {
                 var randomNumFun = getRandomInt(10, 25);
@@ -370,9 +370,9 @@ function petCommand(receivedMessage) {
                 if (catStatus.fun >= 100) {
                     catStatus.fun = 100;
                 }
-                var funArray = [];
-                var rand = foodArray[Math.floor(Math.random() * funArray.length)];
-                receivedMessage.channel.send(receivedMessage.author.toString() + "" + rand + " 😺              +")
+                var funArray = ["Cat Massage! Purrr","🙀 Catnip 🙀", "Head bunting you","Purrr Purr","Sits on your lap","Rolls on the floor uncontrollably","🙀 Ppuurrr.. I feline great!.. 😺 PpuuurrRRRrrr..","Scratches your furtniture","Pat pat on the back",];
+                var rand = funArray[Math.floor(Math.random() * funArray.length)];
+                receivedMessage.channel.send(receivedMessage.author.toString() + " " + rand + " 😺")
 
                 updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
                 updatePersonalCatStats(receivedMessage, "levelProgress", randomNumLevelProgress);
