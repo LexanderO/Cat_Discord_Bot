@@ -429,6 +429,7 @@ function levelUp(receivedMessage) {
             if (catStatus.luvToUsers[i].levelProgress >= 100) {
                 catStatus.luvToUsers[i].levelProgress = 0;
                 var level = catStatus.luvToUsers[i].catLevel + 1;
+                catStatus.luvToUsers[i].catLevel = level
                 receivedMessage.channel.send(receivedMessage.author.toString() + " Congrats! 😺 You are now 🙀 `Lvl " + level + " Meowster` 🙀");
                 var randomNumLuvs = getRandomInt(3, 8);
                 updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
