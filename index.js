@@ -37,20 +37,11 @@ var dict = {
     "level": levelCommand
 };
 
-// var catStatus = {
-//     "hunger": 50,
-//     "fun": 50,
-//     "luvToUsers": [
-//         { "userName": "user1", "luvs": 50 },
-//         { "userName": "user2", "luvs": 50 },
-//     ]
-// };
-
 var catTimer = setInterval(function () { catActivity(); }, 900000);
 var autoSaveStats = setInterval(function () { saveProgress(); }, 900000);
-var autoGetHungry = setInterval(function () { getHungry(); }, 400000);
-var autoGetBored = setInterval(function () { getBored(); }, 400000);
-var autoMinusLuvs = setInterval(function () { minusLuvs(); }, 900000);
+var autoGetHungry = setInterval(function () { getHungry(); }, 90000000);
+var autoGetBored = setInterval(function () { getBored(); }, 90000000);
+var autoMinusLuvs = setInterval(function () { minusLuvs(); }, 90000000);
 
 function catActivity() {
     var catArray = ['opt1', 'opt2', 'opt3', 'opt4', 'opt5'];
@@ -113,6 +104,7 @@ function searhCommand(receivedMessage, primaryCommand, arguments) {
 
 function helpCommand(receivedMessage) {
     console.log(Object.keys(dict));
+    receivedMessage.channel.send("I'm a demanding kitty 😺", { files: ["https://cdn.discordapp.com/attachments/323526272015794176/541657986817327145/WNFR5BRSiLE.png"] });
     receivedMessage.channel.send("`Captain Cat` - Currently running version: `CAT." + buildVersion + "`" + "\n" + "\n" + "Available Commands @Capt. Cat :" + "\n! `" + Object.keys(dict) + "`");
 
 }
@@ -362,7 +354,7 @@ function petCommand(receivedMessage) {
             if (catFun >= 90 && catFun <= 100) {
                 receivedMessage.channel.send(receivedMessage.author.toString() + "Hissss")
             }
-            else if (catFun <= 89 && catStatus.hunger >= 35) {
+            else if (catFun <= 89) {
                 var randomNumFun = getRandomInt(10, 25);
                 var randomNumLuvs = getRandomInt(1, 4);
                 var randomNumLevelProgress = getRandomInt(5, 15);
@@ -437,6 +429,7 @@ function levelUp(receivedMessage) {
             if (catStatus.luvToUsers[i].levelProgress >= 100) {
                 catStatus.luvToUsers[i].levelProgress = 0;
                 var level = catStatus.luvToUsers[i].catLevel + 1;
+                catStatus.luvToUsers[i].catLevel = level;
                 receivedMessage.channel.send(receivedMessage.author.toString() + " Congrats! 😺 You are now 🙀 `Lvl " + level + " Meowster` 🙀");
                 var randomNumLuvs = getRandomInt(3, 8);
                 updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
