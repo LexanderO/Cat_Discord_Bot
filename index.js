@@ -354,7 +354,7 @@ function petCommand(receivedMessage) {
             if (catFun >= 90 && catFun <= 100) {
                 receivedMessage.channel.send(receivedMessage.author.toString() + "Hissss")
             }
-            else if (catFun <= 89 && catStatus.hunger >= 35) {
+            else if (catFun <= 89) {
                 var randomNumFun = getRandomInt(10, 25);
                 var randomNumLuvs = getRandomInt(1, 4);
                 var randomNumLevelProgress = getRandomInt(5, 15);
@@ -429,7 +429,7 @@ function levelUp(receivedMessage) {
             if (catStatus.luvToUsers[i].levelProgress >= 100) {
                 catStatus.luvToUsers[i].levelProgress = 0;
                 var level = catStatus.luvToUsers[i].catLevel + 1;
-                catStatus.luvToUsers[i].catLevel = level
+                catStatus.luvToUsers[i].catLevel = level;
                 receivedMessage.channel.send(receivedMessage.author.toString() + " Congrats! 😺 You are now 🙀 `Lvl " + level + " Meowster` 🙀");
                 var randomNumLuvs = getRandomInt(3, 8);
                 updatePersonalCatStats(receivedMessage, "luvs", randomNumLuvs);
