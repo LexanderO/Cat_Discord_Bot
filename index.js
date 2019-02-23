@@ -104,6 +104,7 @@ function searhCommand(receivedMessage, primaryCommand, arguments) {
 
 function helpCommand(receivedMessage) {
     console.log(Object.keys(dict));
+    receivedMessage.channel.send("I'm a demanding kitty 😺", { files: ["https://cdn.discordapp.com/attachments/323526272015794176/541657986817327145/WNFR5BRSiLE.png"] });
     receivedMessage.channel.send("`Captain Cat` - Currently running version: `CAT." + buildVersion + "`" + "\n" + "\n" + "Available Commands @Capt. Cat :" + "\n! `" + Object.keys(dict) + "`");
 
 }
