@@ -39,9 +39,9 @@ var dict = {
 
 var catTimer = setInterval(function () { catActivity(); }, 900000);
 var autoSaveStats = setInterval(function () { saveProgress(); }, 900000);
-var autoGetHungry = setInterval(function () { getHungry(); }, 90000000);
-var autoGetBored = setInterval(function () { getBored(); }, 90000000);
-var autoMinusLuvs = setInterval(function () { minusLuvs(); }, 90000000);
+var autoGetHungry = setInterval(function () { getHungry(); }, 9999999);
+var autoGetBored = setInterval(function () { getBored(); }, 9999999);
+var autoMinusLuvs = setInterval(function () { minusLuvs(); }, 9999999);
 
 function catActivity() {
     var catArray = ['opt1', 'opt2', 'opt3', 'opt4', 'opt5'];
@@ -405,7 +405,7 @@ function getRandomInt(min, max) {
 }
 
 function getHungry() {
-    var randomNumFeed = getRandomInt(1, 3);
+    var randomNumFeed = getRandomInt(1, 2);
     var catHunger = catStatus.hunger;
     catStatus.hunger = catHunger - randomNumFeed;
     if (catStatus.hunger <= 0) {
@@ -414,7 +414,7 @@ function getHungry() {
 }
 
 function getBored() {
-    var randomNumFun = getRandomInt(1, 3);
+    var randomNumFun = getRandomInt(1, 2);
     var catFun = catStatus.fun;
     catStatus.fun = catFun - randomNumFun;
     if (catStatus.fun <= 0) {
