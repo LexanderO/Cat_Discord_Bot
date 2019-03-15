@@ -1,4 +1,4 @@
-# A Feline Discord Bot 😹
+# A Feline (Cat) Discord Bot 😹
 The Bot - for all of your cat lovin needs, for your discord channel. Easy to setup (guide below).
 
 Not only that you get nice cat pictures, but also you can play with the cat, feed, pet it. The cat can get too full, or tired, stats do decrease over period of time. The more you interact with the cat bot the more it will love you, also users of the cat get to level up. Cat stats and user records are auto-saved (no DB required), no need to worry in case server gets shut down.
