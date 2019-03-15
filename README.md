@@ -40,6 +40,7 @@ Steps:
 npm install
 ```
 This will make node.js pull down all required packages into the project (node_modules folder) wait untill it finishes, very fast process.
+
 7. Execute the following command 
 ```
 npm start
