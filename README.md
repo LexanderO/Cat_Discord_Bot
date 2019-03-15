@@ -20,7 +20,7 @@ But **DO NOT** put out a bot running this code or altered version of this code t
 ### 😺 Setup Guide - Easy stuff
 Requirements:
 * 2 API keys (discord & thecatapi)
-* Node.js (some hosting environmnet that has Node.js available)
+* Node.js (some hosting environment that has Node.js available)
 *The bot can be deployed and executed on local or on servers. I personally prefer AWS Lightsail (cheap and very reliable for discord bots)
 
 Steps:
