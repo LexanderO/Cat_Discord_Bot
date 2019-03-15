@@ -405,7 +405,7 @@ function getRandomInt(min, max) {
 }
 
 function getHungry() {
-    var randomNumFeed = getRandomInt(1, 2);
+    var randomNumFeed = getRandomInt(1, 5);
     var catHunger = catStatus.hunger;
     catStatus.hunger = catHunger - randomNumFeed;
     if (catStatus.hunger <= 0) {
@@ -414,7 +414,7 @@ function getHungry() {
 }
 
 function getBored() {
-    var randomNumFun = getRandomInt(1, 2);
+    var randomNumFun = getRandomInt(1, 5);
     var catFun = catStatus.fun;
     catStatus.fun = catFun - randomNumFun;
     if (catStatus.fun <= 0) {
@@ -454,7 +454,7 @@ function levelCommand(receivedMessage) {
 function minusLuvs() {
     for (var i = 0; i < catStatus.luvToUsers.length; i++) {
         var luvs = catStatus.luvToUsers[i].luvs;
-        catStatus.luvToUsers[i].luvs = luvs - 1;
+        catStatus.luvToUsers[i].luvs = luvs - 2;
         if (catStatus.luvToUsers[i].luvs <= 0) {
             catStatus.luvToUsers[i].luvs = 0;
         }
