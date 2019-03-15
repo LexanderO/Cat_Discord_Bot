@@ -26,14 +26,14 @@ Requirements:
 Steps:
 1. Quick sign up with https://thecatapi.com/ and you will recieve a cat API key.
 2. Follow this <a href="https://www.devdungeon.com/content/javascript-discord-bot-tutorial">Tutorial</a> to configure Discord Dev account and recieve your discord API key. Also from discord dev configuration panel you should be able to invite the bot into your discord server.
-3. Edit config.json file and insert the API keys
+3. Click on <a href="https://github.com/LexanderO/Cat_Discord_Bot/releases">Releases</a> select a release (latest one), click on **Assets** dropdown and download **Source Code** archive. All of this can be also done through *git clone* command.
+4. Edit config.json file and insert the API keys
 ```
 {
     "d_token": "INSERT Discord API Key",
     "cat_token": "INSERT Cat API Key"
 }
 ```
-4. Click on <a href="https://github.com/LexanderO/Cat_Discord_Bot/releases">Releases</a> select a release (latest one), click on **Assets** dropdown and download **Source Code** archive. All of this can be also done through *git clone* command.
 5. Deployment- Node.js required if it is will be running on your local machine or on your server. Open command line and **cd** into the project folder, where *package.json* file is.
 6. Execute the following command 
 ```
