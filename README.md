@@ -14,7 +14,7 @@ Not only that you get nice cat pictures, but also you can play with the cat, fee
 
 ### 😺 Policy
 Feel free to play with code, use for your discord server, share it with friends, *plz credit me :P*, basicly have fun. You may share this repo URL on other websites.
-But **DO NOT** put out a bot running this code or altered version of this code to https://discordbots.org/ or any websites that list discord bots.
+But **DO NOT** put out a bot running this code or altered version of this code to https://discordbots.org/ or any websites that list discord bots without giving this repo and me credit.
 *Thank you! <3*
 
 ### 😺 Setup Guide - Easy stuff
