@@ -72,7 +72,7 @@ client.on('message', (receivedMessage) => {
     if (receivedMessage.content == "!meow") {
         processCommand(receivedMessage)
     }
-    else if (receivedMessage.content.startsWith("!") && receivedMessage.content.includes(client.user.toString())) {
+    else if (receivedMessage.content.startsWith("!")) {
         processCommand(receivedMessage)
     }
     else if (receivedMessage.content.includes(client.user.toString())) {
